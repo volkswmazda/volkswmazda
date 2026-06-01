@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Volkswmazda · Centro de Servicio Especializado · Tunja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  /* Acentos */
+  --acc:#2563EB;--acc2:#1D4ED8;--acc3:#1E40AF;
+  --acc-glow:rgba(37,99,235,0.28);--acc-glow2:rgba(37,99,235,0.14);
+  --acc-border:rgba(37,99,235,0.30);--acc-bg:rgba(37,99,235,0.07);
+  --acc-soft:#EAF0FE;
+  --red:#D32F2F;--gold:#F59E0B;--green:#16a34a;
+
+  /* Tema CLARO — grises claros y blancos */
+  --bg:#EBEEF3;          /* fondo página gris claro */
+  --bg2:#FFFFFF;         /* secciones blancas */
+  --bg3:#E2E6EE;         /* gris medio claro */
+  --bg-tint:#F4F6FA;     /* gris azulado muy claro */
+  --card:#FFFFFF;
+  --card2:#F5F7FB;
+  --border:rgba(23,32,56,0.10);
+  --border2:rgba(23,32,56,0.18);
+
+  /* Texto oscuro sobre claro */
+  --t1:#161A23;
+  --t2:#565E70;
+  --t3:#929AAB;
+
+  --f1:'Bebas Neue',sans-serif;
+  --f2:'Rajdhani',sans-serif;
+  --f3:'Manrope',sans-serif;
+
+  --shadow-sm:0 2px 8px rgba(23,32,56,.06);
+  --shadow-md:0 12px 30px rgba(23,32,56,.10);
+  --shadow-lg:0 24px 60px rgba(23,32,56,.16);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{background:var(--bg);color:var(--t1);font-family:var(--f3);overflow-x:hidden;line-height:1.5}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg3)}
+::-webkit-scrollbar-thumb{background:#b6bdcb;border-radius:6px;border:2px solid var(--bg3)}
+::-webkit-scrollbar-thumb:hover{background:var(--acc)}
+
+/* ============ NAV ============ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 56px;height:74px;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);
+  border-bottom:1px solid var(--border);transition:all .35s;
+}
+nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 4px 24px rgba(23,32,56,.07)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo img{height:42px;width:auto;object-fit:contain}
+.nav-logo-fallback{font-family:var(--f1);font-size:27px;letter-spacing:.06em;color:var(--t1);display:none}
+.nav-logo-fallback span{color:var(--acc)}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{font-family:var(--f2);font-size:14px;font-weight:600;letter-spacing:.10em;color:var(--t2);text-transform:uppercase;position:relative;transition:color .2s}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-5px;width:0;height:2px;background:var(--acc);transition:width .25s;border-radius:2px}
+.nav-links a:hover{color:var(--t1)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-admin{
+  display:flex;align-items:center;gap:8px;padding:9px 16px;
+  border:1px solid var(--border2);border-radius:8px;
+  font-family:var(--f2);font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--t2);
+  text-transform:uppercase;transition:all .2s;background:var(--card2);
+}
+.nav-admin:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-soft);transform:translateY(-1px)}
+.nav-admin svg{width:15px;height:15px}
+.nav-cta{
+  display:flex;align-items:center;gap:9px;padding:11px 22px;
+  background:var(--acc);color:#fff;
+  font-family:var(--f2);font-size:13px;font-weight:700;letter-spacing:.07em;
+  border-radius:8px;transition:all .25s;text-transform:uppercase;
+  box-shadow:0 6px 18px var(--acc-glow);
+}
+.nav-cta:hover{background:var(--acc2);box-shadow:0 10px 28px var(--acc-glow);transform:translateY(-2px)}
+.nav-ham{display:none;flex-direction:column;gap:5px;padding:6px;cursor:pointer}
+.nav-ham span{display:block;width:24px;height:2px;background:var(--t1);border-radius:2px;transition:all .3s}
+.nav-ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.nav-ham.open span:nth-child(2){opacity:0}
+.nav-ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mob-menu{
+  display:none;position:fixed;top:74px;left:0;right:0;bottom:0;z-index:99;
+  background:rgba(255,255,255,.98);backdrop-filter:blur(24px);
+  flex-direction:column;align-items:center;justify-content:center;gap:26px;
+}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:var(--f1);font-size:38px;letter-spacing:.04em;color:var(--t2);transition:color .2s}
+.mob-menu a:hover{color:var(--acc)}
+.mob-menu .nav-admin{font-size:16px;padding:12px 24px}
+
+/* ============ HERO CARRUSEL ============ */
+#hero{min-height:100vh;position:relative;display:flex;align-items:center;padding:0 56px;overflow:hidden}
+.hero-carousel{position:absolute;inset:0;z-index:0}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.3s ease-in-out,transform 7s ease-out;background-size:cover;background-position:center;transform:scale(1.08)}
+.hero-slide.active{opacity:1;transform:scale(1)}
+/* Overlay PRO: degradado azul-oscuro a la izquierda para legibilidad del texto */
+.hero-slide::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(100deg,rgba(8,14,30,.93) 0%,rgba(10,18,40,.74) 42%,rgba(12,22,48,.36) 70%,rgba(18,30,60,.20) 100%),
+    radial-gradient(ellipse 70% 90% at 88% 50%,rgba(37,99,235,.22) 0%,transparent 65%);
+}
+/* Cada slide carga una foto real; el gradiente de respaldo se ve si la imagen falla */
+.slide-1{background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80')}
+.slide-2{background-image:url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1600&q=80')}
+.slide-3{background-image:url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=80')}
+.slide-4{background-image:url('https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=1600&q=80')}
+
+.carousel-dots{position:absolute;bottom:46px;left:56px;z-index:4;display:flex;gap:10px}
+.dot{width:30px;height:4px;border-radius:4px;background:rgba(255,255,255,.30);cursor:pointer;transition:all .35s;border:none;padding:0}
+.dot.active{background:var(--acc);width:54px;box-shadow:0 0 16px var(--acc-glow)}
+.slide-label{position:absolute;bottom:46px;right:56px;z-index:4;font-family:var(--f2);font-size:12px;font-weight:600;letter-spacing:.18em;color:rgba(255,255,255,.55);text-transform:uppercase;text-align:right;display:flex;align-items:center;gap:10px}
+.slide-label::before{content:'';width:26px;height:1px;background:rgba(255,255,255,.4)}
+
+.hero-content{position:relative;z-index:3;max-width:780px;animation:heroIn 1s cubic-bezier(.22,1,.36,1) both}
+@keyframes heroIn{from{opacity:0;transform:translateY(44px)}to{opacity:1;transform:translateY(0)}}
+.hero-tag{display:inline-flex;align-items:center;gap:9px;margin-bottom:26px;padding:8px 16px;border:1px solid rgba(255,255,255,.22);border-radius:30px;background:rgba(255,255,255,.08);backdrop-filter:blur(6px)}
+.hero-tag-dot{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 var(--acc-glow);animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,99,235,.55)}70%{box-shadow:0 0 0 9px rgba(37,99,235,0)}100%{box-shadow:0 0 0 0 rgba(37,99,235,0)}}
+.hero-tag span{font-family:var(--f2);font-size:12px;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.92);text-transform:uppercase}
+.hero-h1{font-family:var(--f1);font-size:clamp(60px,8.5vw,128px);line-height:.84;letter-spacing:.015em;margin-bottom:26px;color:#fff;text-shadow:0 6px 40px rgba(0,0,0,.4)}
+.hero-h1 em{font-style:normal;display:block;background:linear-gradient(95deg,#60a5fa,#2563EB 60%,#3b82f6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.80);line-height:1.7;max-width:540px;margin-bottom:42px;font-weight:400}
+.hero-btns{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+.btn-prim{display:inline-flex;align-items:center;gap:10px;padding:16px 30px;background:var(--acc);color:#fff;font-family:var(--f2);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;border-radius:10px;transition:all .28s;box-shadow:0 10px 30px var(--acc-glow)}
+.btn-prim:hover{background:var(--acc2);box-shadow:0 16px 42px var(--acc-glow);transform:translateY(-3px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border:1px solid rgba(255,255,255,.30);color:#fff;font-family:var(--f2);font-weight:600;font-size:15px;letter-spacing:.05em;text-transform:uppercase;border-radius:10px;transition:all .28s;background:rgba(255,255,255,.06);backdrop-filter:blur(6px)}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.16);transform:translateY(-3px)}
+.btn-ghost svg{transition:transform .25s}
+.btn-ghost:hover svg{transform:translateX(4px)}
+
+/* ============ SECCIONES COMUNES ============ */
+section{padding:108px 56px}
+.s-tag{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;font-family:var(--f2);font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--acc);text-transform:uppercase}
+.s-tag::before{content:'';width:26px;height:2px;background:var(--acc);border-radius:2px}
+.s-title{font-family:var(--f1);font-size:clamp(40px,5.2vw,74px);letter-spacing:.015em;line-height:.92;margin-bottom:14px;color:var(--t1)}
+.s-title em{font-style:normal;color:var(--acc)}
+.s-sub{font-size:16px;color:var(--t2);line-height:1.7;max-width:540px}
+
+/* ============ SERVICIOS — cards con foto + overlay ============ */
+#services{background:var(--bg)}
+.srv-intro{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:54px;flex-wrap:wrap}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.srv-card{
+  position:relative;overflow:hidden;border-radius:18px;min-height:320px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:30px;cursor:default;isolation:isolate;
+  box-shadow:var(--shadow-sm);transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s;
+  border:1px solid var(--border);
+}
+.srv-card::before{ /* imagen de fondo */
+  content:'';position:absolute;inset:0;z-index:-2;
+  background-size:cover;background-position:center;
+  transition:transform .7s cubic-bezier(.22,1,.36,1);
+}
+.srv-card::after{ /* overlay pro */
+  content:'';position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(10,16,32,.20) 0%,rgba(10,16,32,.55) 50%,rgba(8,13,28,.92) 100%);
+  transition:background .4s;
+}
+.srv-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+.srv-card:hover::before{transform:scale(1.10)}
+.srv-card:hover::after{background:linear-gradient(180deg,rgba(13,33,80,.28) 0%,rgba(11,22,52,.62) 45%,rgba(8,16,40,.95) 100%)}
+.srv-1::before{background-image:linear-gradient(135deg,#16294f,#0b1730),url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=900&q=80')}
+.srv-2::before{background-image:linear-gradient(135deg,#13284e,#0a1428),url('https://images.unsplash.com/photo-1632823469850-71b405eac6e0?auto=format&fit=crop&w=900&q=80')}
+.srv-3::before{background-image:linear-gradient(135deg,#162a52,#0c1834),url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=900&q=80')}
+.srv-4::before{background-image:linear-gradient(135deg,#13264c,#0a1830),url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=900&q=80')}
+.srv-5::before{background-image:linear-gradient(135deg,#172c54,#0b1832),url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=900&q=80')}
+.srv-6::before{background-image:linear-gradient(135deg,#13284e,#0a1628),url('https://images.unsplash.com/photo-1635774855536-9728f2610245?auto=format&fit=crop&w=900&q=80')}
+.srv-card-num{font-family:var(--f2);font-size:12px;font-weight:700;letter-spacing:.22em;color:rgba(255,255,255,.55);margin-bottom:auto}
+.srv-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(8px);transition:all .3s}
+.srv-card:hover .srv-icon{background:var(--acc);border-color:var(--acc);box-shadow:0 8px 24px var(--acc-glow)}
+.srv-icon svg{width:26px;height:26px;color:#fff}
+.srv-name{font-family:var(--f2);font-size:22px;font-weight:700;letter-spacing:.01em;margin-bottom:9px;color:#fff}
+.srv-desc{font-size:13.5px;color:rgba(255,255,255,.78);line-height:1.6;max-width:90%}
+.srv-arrow{position:absolute;top:28px;right:28px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.30);display:flex;align-items:center;justify-content:center;color:#fff;background:rgba(255,255,255,.08);transition:all .3s}
+.srv-card:hover .srv-arrow{background:var(--acc);border-color:var(--acc);transform:rotate(-45deg)}
+
+/* ============ MARCAS — logos reales ============ */
+#brands{background:var(--bg2)}
+.brands-intro{display:grid;grid-template-columns:1fr 1.05fr;gap:70px;align-items:center;margin-bottom:54px}
+.brands-visual{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.brand-pill{padding:30px 18px;border-radius:16px;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:14px;background:var(--card);transition:all .32s;cursor:default;box-shadow:var(--shadow-sm)}
+.brand-pill:hover{border-color:var(--acc-border);transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.brand-logo{height:48px;width:auto;max-width:96px;object-fit:contain;filter:grayscale(20%);transition:filter .3s,transform .3s}
+.brand-pill:hover .brand-logo{filter:grayscale(0%);transform:scale(1.06)}
+.brand-logo-fallback{font-family:var(--f1);font-size:26px;letter-spacing:.04em;color:var(--t1)}
+.brand-pill-name{font-family:var(--f2);font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--t1)}
+.brand-pill-lbl{font-family:var(--f3);font-size:11px;color:var(--t3);text-align:center;line-height:1.5}
+.brands-secondary{margin:36px 0 54px}
+.brands-secondary-title{font-family:var(--f2);font-size:13px;font-weight:700;letter-spacing:.18em;color:var(--t3);text-transform:uppercase;margin-bottom:18px}
+.brands-row{display:flex;gap:14px;flex-wrap:wrap}
+.brand-chip{display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:12px;border:1px solid var(--border);background:var(--card2);transition:all .25s}
+.brand-chip:hover{border-color:var(--acc-border);background:var(--acc-soft);transform:translateY(-3px)}
+.brand-chip img{height:28px;width:auto;max-width:70px;object-fit:contain;filter:grayscale(30%)}
+.brand-chip:hover img{filter:grayscale(0)}
+.brand-chip-fallback{font-family:var(--f1);font-size:19px;letter-spacing:.04em;color:var(--t1)}
+.brand-chip span{font-family:var(--f2);font-size:14px;font-weight:700;color:var(--t1)}
+.brands-feat{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.bfeat{padding:28px 24px;border:1px solid var(--border);border-radius:16px;background:var(--card);transition:all .28s;box-shadow:var(--shadow-sm)}
+.bfeat:hover{border-color:var(--acc-border);transform:translateY(-5px);box-shadow:var(--shadow-md)}
+.bfeat-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--acc-soft);border:1px solid var(--acc-border);margin-bottom:16px}
+.bfeat-ico svg{width:22px;height:22px;color:var(--acc)}
+.bfeat-title{font-family:var(--f2);font-size:17px;font-weight:700;margin-bottom:7px;color:var(--t1)}
+.bfeat-desc{font-size:13.5px;color:var(--t2);line-height:1.6}
+
+/* ============ REPUESTOS & PROVEEDORES ============ */
+#partes{background:var(--bg)}
+.partes-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:30px;margin-top:50px}
+.partes-block{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;box-shadow:var(--shadow-sm)}
+.partes-block-title{font-family:var(--f2);font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--acc);text-transform:uppercase;margin-bottom:6px}
+.partes-block h3{font-family:var(--f1);font-size:34px;letter-spacing:.03em;margin-bottom:26px;color:var(--t1)}
+.partes-items{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.parte-item{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:18px 16px;display:flex;align-items:center;gap:14px;transition:all .25s;cursor:default}
+.parte-item:hover{border-color:var(--acc-border);background:var(--acc-soft);transform:translateY(-2px)}
+.parte-item-ico{width:42px;height:42px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--acc-soft);border:1px solid var(--acc-border)}
+.parte-item-ico svg{width:21px;height:21px;color:var(--acc)}
+.parte-item-name{font-family:var(--f2);font-size:14px;font-weight:700;letter-spacing:.02em;color:var(--t1)}
+.prov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.prov-item{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:20px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:108px;transition:all .25s;cursor:default}
+.prov-item:hover{border-color:var(--acc-border);background:#fff;transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.prov-logo-img{height:34px;width:auto;max-width:110px;object-fit:contain;filter:grayscale(60%) opacity(.85);transition:all .3s}
+.prov-item:hover .prov-logo-img{filter:grayscale(0) opacity(1)}
+.prov-logo-fallback{font-family:var(--f1);font-size:22px;letter-spacing:.03em}
+.prov-cat{font-family:var(--f2);font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--t3);text-transform:uppercase}
+
+/* ============ TESTIMONIOS — tarjeta angosta, auto cada 8s ============ */
+#testimonials{position:relative;overflow:hidden;background:var(--bg2)}
+.test-intro{text-align:center;max-width:620px;margin:0 auto 50px}
+.test-intro .s-tag{justify-content:center}
+.test-intro .s-tag::before{display:none}
+.test-rating{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-family:var(--f2);font-size:14px;font-weight:600;color:var(--t2);letter-spacing:.04em}
+.test-rating .stars{color:var(--gold);letter-spacing:2px}
+.test-slider-wrap{position:relative;overflow:hidden;max-width:1180px;margin:0 auto;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.test-track{display:flex;transition:transform .9s cubic-bezier(.22,1,.36,1);gap:20px}
+.test-card{
+  min-width:340px;max-width:340px;flex-shrink:0;
+  background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;
+  box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s,border-color .3s;
+}
+.test-card:hover{transform:translateY(-5px);border-color:var(--acc-border);box-shadow:var(--shadow-md)}
+.test-quote{font-family:var(--f1);font-size:54px;line-height:.6;color:var(--acc);opacity:.22;margin-bottom:8px}
+.test-stars{display:flex;gap:3px;margin-bottom:14px}
+.test-stars span{color:var(--gold);font-size:15px}
+.test-text{font-size:14.5px;color:var(--t2);line-height:1.7;margin-bottom:22px}
+.test-author{display:flex;align-items:center;gap:13px}
+.test-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--f1);font-size:18px;background:linear-gradient(135deg,var(--acc),var(--acc3));color:#fff;flex-shrink:0}
+.test-name{font-family:var(--f2);font-size:15px;font-weight:700;color:var(--t1)}
+.test-vehicle{font-size:12px;color:var(--t3)}
+.test-controls{display:flex;justify-content:center;gap:12px;margin-top:38px}
+.test-btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--border2);background:var(--card);display:flex;align-items:center;justify-content:center;color:var(--t2);cursor:pointer;transition:all .22s;box-shadow:var(--shadow-sm)}
+.test-btn:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-soft);transform:translateY(-2px)}
+
+/* ============ CTA ============ */
+#cta{padding:96px 56px;background:linear-gradient(120deg,var(--acc3),var(--acc) 55%,#3b82f6);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+#cta::before{content:'';position:absolute;top:-55%;right:-6%;width:520px;height:520px;border-radius:50%;background:rgba(255,255,255,.10)}
+#cta::after{content:'';position:absolute;bottom:-45%;left:18%;width:340px;height:340px;border-radius:50%;background:rgba(0,0,0,.10)}
+.cta-content{position:relative;z-index:1}
+.cta-tag{font-family:var(--f2);font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-bottom:12px}
+.cta-title{font-family:var(--f1);font-size:clamp(40px,5vw,72px);letter-spacing:.02em;line-height:.9;color:#fff}
+.cta-sub{font-size:16px;color:rgba(255,255,255,.85);margin-top:14px;line-height:1.6;max-width:440px}
+.cta-actions{position:relative;z-index:1;display:flex;flex-direction:column;gap:16px;align-items:flex-end}
+.btn-white{display:inline-flex;align-items:center;gap:10px;padding:17px 32px;background:#fff;color:var(--acc);font-family:var(--f2);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;border-radius:10px;transition:all .25s;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.btn-white:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.cta-phone{font-family:var(--f1);font-size:30px;letter-spacing:.04em;color:#fff;white-space:nowrap;text-align:right}
+.cta-phone-lbl{font-family:var(--f2);font-size:11px;font-weight:600;letter-spacing:.16em;color:rgba(255,255,255,.6);text-transform:uppercase;text-align:right;margin-top:3px}
+
+/* ============ CONTACTO ============ */
+#contact{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.contact-left{padding:104px 56px;background:var(--bg2);border-right:1px solid var(--border)}
+.contact-right{padding:104px 56px;background:var(--bg)}
+.contact-info{display:flex;flex-direction:column;gap:24px;margin-top:36px}
+.contact-map{margin-top:30px;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+.contact-map iframe{width:100%;height:260px;border:none;display:block}
+.cinfo{display:flex;gap:16px;align-items:flex-start}
+.cinfo-ico{width:44px;height:44px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--acc-soft);border:1px solid var(--acc-border)}
+.cinfo-ico svg{width:20px;height:20px;color:var(--acc)}
+.cinfo-lbl{font-family:var(--f2);font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--t3);text-transform:uppercase;margin-bottom:4px}
+.cinfo-val{font-family:var(--f2);font-size:16px;font-weight:600;color:var(--t1)}
+.cinfo-val a{color:var(--acc);transition:opacity .2s}
+.cinfo-val a:hover{opacity:.75}
+.contact-form{display:flex;flex-direction:column;gap:18px}
+.cf-group{display:flex;flex-direction:column;gap:8px}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cf-label{font-family:var(--f2);font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--t2);text-transform:uppercase}
+.cf-input,.cf-select{width:100%;padding:14px 16px;background:var(--card);border:1px solid var(--border2);border-radius:10px;color:var(--t1);font-size:15px;font-family:var(--f3);outline:none;transition:all .2s;caret-color:var(--acc)}
+.cf-input::placeholder{color:var(--t3)}
+.cf-input:focus,.cf-select:focus{border-color:var(--acc);box-shadow:0 0 0 4px var(--acc-glow2)}
+textarea.cf-input{resize:vertical;min-height:120px}
+.cf-select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23929AAB' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.cf-submit{width:100%;padding:17px;background:var(--acc);color:#fff;font-family:var(--f2);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;border-radius:10px;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 24px var(--acc-glow)}
+.cf-submit:hover{background:var(--acc2);box-shadow:0 14px 36px var(--acc-glow);transform:translateY(-2px)}
+
+/* ============ WHATSAPP FLOAT ============ */
+.wa-float{position:fixed;bottom:30px;right:30px;z-index:200;width:62px;height:62px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 28px rgba(37,211,102,.5);transition:all .3s;animation:waPulse 3s ease-in-out infinite}
+.wa-float:hover{transform:scale(1.1)}
+@keyframes waPulse{0%,100%{box-shadow:0 6px 28px rgba(37,211,102,.5)}50%{box-shadow:0 6px 46px rgba(37,211,102,.85)}}
+.wa-tooltip{position:absolute;right:74px;background:var(--card);color:var(--t1);padding:9px 15px;border-radius:8px;font-family:var(--f2);font-size:13px;font-weight:600;white-space:nowrap;border:1px solid var(--border);box-shadow:var(--shadow-md);opacity:0;pointer-events:none;transition:opacity .25s}
+.wa-float:hover .wa-tooltip{opacity:1}
+
+/* ============ FOOTER ============ */
+footer{background:#10141C;color:#cfd5e0;border-top:1px solid var(--border);padding:64px 56px 32px}
+.footer-top{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:42px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.10);margin-bottom:28px}
+.footer-logo{height:46px;width:auto;margin-bottom:18px;object-fit:contain}
+.footer-logo-fallback{font-family:var(--f1);font-size:30px;letter-spacing:.06em;color:#fff;margin-bottom:18px;display:none}
+.footer-logo-fallback span{color:var(--acc)}
+.footer-brand-desc{font-size:13.5px;color:#9aa3b3;line-height:1.7;max-width:280px;margin-bottom:22px}
+.footer-social{display:flex;gap:10px}
+.fsoc{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.14);color:#9aa3b3;transition:all .2s}
+.fsoc:hover{border-color:var(--acc);color:#fff;background:var(--acc)}
+.footer-col-title{font-family:var(--f2);font-size:12px;font-weight:700;letter-spacing:.18em;color:#fff;text-transform:uppercase;margin-bottom:18px}
+.footer-links{display:flex;flex-direction:column;gap:11px}
+.footer-links a{font-size:13.5px;color:#9aa3b3;transition:color .2s}
+.footer-links a:hover{color:var(--acc)}
+.footer-admin{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:9px 16px;border:1px solid rgba(255,255,255,.18);border-radius:8px;font-family:var(--f2);font-size:12px;font-weight:700;letter-spacing:.08em;color:#cfd5e0;text-transform:uppercase;transition:all .2s}
+.footer-admin:hover{border-color:var(--acc);background:var(--acc);color:#fff}
+.footer-admin svg{width:14px;height:14px}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:12.5px;color:#6f7889;flex-wrap:wrap}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.08s}
+.reveal-delay-2{transition-delay:.16s}
+.reveal-delay-3{transition-delay:.24s}
+.reveal-delay-4{transition-delay:.32s}
+.reveal-delay-5{transition-delay:.40s}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1024px){
+  nav{padding:0 26px}
+  #hero{padding:0 26px}
+  section{padding:80px 26px}
+  .carousel-dots,.slide-label{left:26px;right:26px}
+  #contact{grid-template-columns:1fr}
+  .contact-left{padding:60px 26px;border-right:none;border-bottom:1px solid var(--border)}
+  .contact-right{padding:60px 26px}
+  .brands-intro{grid-template-columns:1fr;gap:40px}
+  .partes-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr;gap:30px}
+  footer{padding:52px 26px 26px}
+  .srv-grid{grid-template-columns:repeat(2,1fr)}
+  #cta{padding:70px 26px;flex-direction:column;align-items:flex-start}
+  .cta-actions{align-items:flex-start}
+  .cta-phone,.cta-phone-lbl{text-align:left}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .nav-ham{display:flex}
+  .nav-admin{display:none}
+  .srv-grid{grid-template-columns:1fr}
+  .brands-visual{grid-template-columns:1fr}
+  .brands-feat{grid-template-columns:1fr}
+  .prov-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr}
+  .cf-row{grid-template-columns:1fr}
+  .test-card{min-width:300px;max-width:300px}
+  .slide-label{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="main-nav" style="background-color:black">
+  <a href="#hero" class="nav-logo">
+    <img src="logo.png" alt="Volkswmazda" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <div class="nav-logo-fallback">VOLKSW<span>MAZDA</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="#services">Servicios</a>
+    <a href="#brands">Marcas</a>
+    <a href="#partes">Repuestos</a>
+    <a href="#testimonials">Reseñas</a>
+    <a href="#contact">Contacto</a>
+  </div>
+  <div class="nav-right">
+    <a href="login.html" class="nav-admin" title="Sistema administrativo">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Admin
+    </a>
+    <a href="https://wa.me/573453450000?text=Hola,%20quiero%20agendar%20una%20cita" target="_blank" class="nav-cta" onclick="return true;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.9"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+      Agendar Cita
+    </a>
+  </div>
+  <div class="nav-ham" id="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ===== MENU MÓVIL ===== -->
+<div class="mob-menu" id="mob-menu">
+  <a href="#services" onclick="toggleMenu()">Servicios</a>
+  <a href="#brands" onclick="toggleMenu()">Marcas</a>
+  <a href="#partes" onclick="toggleMenu()">Repuestos</a>
+  <a href="#testimonials" onclick="toggleMenu()">Reseñas</a>
+  <a href="#contact" onclick="toggleMenu()">Contacto</a>
+  <a href="login.html" class="nav-admin">
+    <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    Sistema Admin
+  </a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-carousel" id="heroCarousel">
+    <div class="hero-slide slide-1 active"></div>
+    <div class="hero-slide slide-2"></div>
+    <div class="hero-slide slide-3"></div>
+    <div class="hero-slide slide-4"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-tag">
+      <div class="hero-tag-dot"></div>
+      <span>Centro de Servicio Especializado · Tunja</span>
+    </div>
+    <h1 class="hero-h1">SERVICIO<em>ESPECIALIZADO.</em></h1>
+    <p class="hero-sub">El taller especializado de Tunja para Volkswagen, Audi y Mazda. Diagnóstico de última generación, técnicos certificados y garantía en cada servicio.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/573453450000?text=Hola,%20quiero%20agendar%20una%20cita%20en%20Volkswmazda" target="_blank" class="btn-prim" onclick="return true;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Agendar por WhatsApp
+      </a>
+      <a href="#services" class="btn-ghost">Ver Servicios
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="slide-label" id="slideLabel">Volkswagen · Servicio Premium</div>
+  <div class="carousel-dots">
+    <button class="dot active" onclick="goToSlide(0)"></button>
+    <button class="dot" onclick="goToSlide(1)"></button>
+    <button class="dot" onclick="goToSlide(2)"></button>
+    <button class="dot" onclick="goToSlide(3)"></button>
+  </div>
+</section>
+
+<!-- ===== SERVICIOS ===== -->
+<section id="services">
+  <div class="srv-intro">
+    <div>
+      <div class="s-tag">Servicios</div>
+      <h2 class="s-title">TODO LO QUE<br/><em>TU AUTO</em> NECESITA</h2>
+    </div>
+    <p class="s-sub">Desde el diagnóstico inicial hasta la entrega final, cada proceso está diseñado con los más altos estándares de calidad y transparencia.</p>
+  </div>
+  <div class="srv-grid">
+    <div class="srv-card srv-1 reveal">
+      <div class="srv-arrow"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="srv-card-num">01 · MECÁNICA</div>
+      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="srv-name">Mecánica General</div>
+      <div class="srv-desc">Frenos, suspensión, dirección, transmisión y motor con repuestos originales y garantía de trabajo.</div>
+    </div>
+    <div class="srv-card srv-2 reveal reveal-delay-1">
+      <div class="srv-arrow"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="srv-card-num">02 · PREVENTIVO</div>
+      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+      <div class="srv-name">Mantenimiento Preventivo</div>
+      <div class="srv-desc">Planes por kilometraje. Aceites, filtros y revisiones según especificaciones del fabricante.</div>
+    </div>
+    <div class="srv-card srv-3 reveal reveal-delay-2">
+      <div class="srv-arrow"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="srv-card-num">03 · DIAGNÓSTICO</div>
+      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M6 9l2 2-2 2M11 13h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="srv-name">Diagnóstico Computarizado</div>
+      <div class="srv-desc">Escáner de última generación compatible con OBD-II, CAN Bus y sistemas propietarios VW, Audi y Mazda.</div>
+    </div>
+    <div class="srv-card srv-4 reveal">
+      <div class="srv-arrow"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="srv-card-num">04 · SEGURIDAD</div>
+      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+      <div class="srv-name">Suspensión y Frenos</div>
+      <div class="srv-desc">Revisión, diagnóstico y reparación completa de sistemas de suspensión y frenos para máxima seguridad.</div>
+    </div>
+    <div class="srv-card srv-5 reveal reveal-delay-1">
+      <div class="srv-arrow"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="srv-card-num">05 · MOTOR</div>
+      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 9h2V7h4v2h2l3 3v3h2v3h-2v-2H5v2H3v-3h2v-3l2-2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="srv-name">Reparación de Motores</div>
+      <div class="srv-desc">Rectificación, overhaul y reparación integral de motores con garantía escrita en cada intervención.</div>
+    </div>
+    <div class="srv-card srv-6 reveal reveal-delay-2">
+      <div class="srv-arrow"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="srv-card-num">06 · LUBRICACIÓN</div>
+      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2.5S6 9 6 14a6 6 0 0 0 12 0c0-5-6-11.5-6-11.5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="srv-name">Cambio de Aceite</div>
+      <div class="srv-desc">Productos de primera línea (Liqui Moly, Mobil) según especificaciones exactas del fabricante.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MARCAS ===== -->
+<section id="brands">
+  <div class="brands-intro">
+    <div class="reveal">
+      <div class="s-tag">Marcas Atendidas</div>
+      <h2 class="s-title">ESPECIALISTAS EN<br/><em>MARCAS LÍDERES</em></h2>
+      <p class="s-sub" style="margin-top:16px">Nuestro equipo técnico está certificado y actualizado en los sistemas más modernos del grupo Volkswagen y Mazda.</p>
+    </div>
+    <div class="brands-visual">
+      <div class="brand-pill reveal">
+        <img class="brand-logo" src="https://cdn.simpleicons.org/volkswagen/151F2E" alt="Volkswagen" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <div class="brand-logo-fallback" style="display:none">VW</div>
+        <div class="brand-pill-name">Volkswagen</div>
+        <div class="brand-pill-lbl">Golf · Jetta · Tiguan<br/>Polo · Touareg</div>
+      </div>
+      <div class="brand-pill reveal reveal-delay-1">
+        <img class="brand-logo" src="https://cdn.simpleicons.org/audi/151F2E" alt="Audi" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <div class="brand-logo-fallback" style="display:none">AUDI</div>
+        <div class="brand-pill-name">Audi</div>
+        <div class="brand-pill-lbl">A3 · A4 · A5 · A6<br/>Q3 · Q5 · Q7</div>
+      </div>
+      <div class="brand-pill reveal reveal-delay-2">
+        <img class="brand-logo" src="https://cdn.simpleicons.org/mazda/151F2E" alt="Mazda" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <div class="brand-logo-fallback" style="display:none">MAZDA</div>
+        <div class="brand-pill-name">Mazda</div>
+        <div class="brand-pill-lbl">Mazda 2 · 3 · 6<br/>CX-3 · CX-5 · CX-9</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brands-secondary reveal">
+    <div class="brands-secondary-title">Demás marcas del grupo Volkswagen</div>
+    <div class="brands-row">
+      <div class="brand-chip">
+        <img src="https://cdn.simpleicons.org/skoda/151F2E" alt="Škoda" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <div class="brand-chip-fallback" style="display:none">Sk</div>
+        <span>Škoda</span>
+      </div>
+      <div class="brand-chip">
+        <img src="https://cdn.simpleicons.org/seat/151F2E" alt="SEAT" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <div class="brand-chip-fallback" style="display:none">SEAT</div>
+        <span>SEAT</span>
+      </div>
+      <div class="brand-chip">
+        <img src="https://cdn.simpleicons.org/porsche/151F2E" alt="Porsche" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <div class="brand-chip-fallback" style="display:none">Porsche</div>
+        <span>Porsche</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="brands-feat">
+    <div class="bfeat reveal">
+      <div class="bfeat-ico"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M6 9l2 2-2 2M11 13h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="bfeat-title">Software Original</div>
+      <div class="bfeat-desc">Herramientas de diagnóstico OEM para acceso completo a todos los módulos del vehículo.</div>
+    </div>
+    <div class="bfeat reveal reveal-delay-1">
+      <div class="bfeat-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 11.5l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="bfeat-title">Repuestos Originales</div>
+      <div class="bfeat-desc">Trabajamos con repuestos originales y de primer nivel para garantizar durabilidad y seguridad.</div>
+    </div>
+    <div class="bfeat reveal reveal-delay-2">
+      <div class="bfeat-ico"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+      <div class="bfeat-title">Técnicos Certificados</div>
+      <div class="bfeat-desc">Ingenieros y técnicos con formación específica de marca y actualización permanente.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REPUESTOS & PROVEEDORES ===== -->
+<section id="partes">
+  <div class="s-tag">Repuestos y Proveedores</div>
+  <h2 class="s-title">CALIDAD EN<br/><em>CADA PIEZA</em></h2>
+  <p class="s-sub" style="margin-top:8px">Trabajamos con repuestos originales y proveedores aliados de primer nivel mundial.</p>
+
+  <div class="partes-grid">
+    <div class="partes-block reveal">
+      <div class="partes-block-title">Repuestos más utilizados</div>
+      <h3>Partes &amp; Insumos</h3>
+      <div class="partes-items">
+        <div class="parte-item">
+          <div class="parte-item-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2.5S6 9 6 14a6 6 0 0 0 12 0c0-5-6-11.5-6-11.5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="parte-item-name">Aceites Motor</div>
+        </div>
+        <div class="parte-item">
+          <div class="parte-item-ico"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+          <div class="parte-item-name">Filtros</div>
+        </div>
+        <div class="parte-item">
+          <div class="parte-item-ico"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.6"/></svg></div>
+          <div class="parte-item-name">Pastillas Freno</div>
+        </div>
+        <div class="parte-item">
+          <div class="parte-item-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0z" stroke="currentColor" stroke-width="1.6"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+          <div class="parte-item-name">Kit Distribución</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="partes-block reveal reveal-delay-2">
+      <div class="partes-block-title">Proveedores Aliados</div>
+      <h3>Marcas Premium</h3>
+      <div class="prov-grid">
+        <div class="prov-item">
+          <img class="prov-logo-img" src="https://cdn.simpleicons.org/liquimoly" alt="Liqui Moly" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <div class="prov-logo-fallback" style="display:none;color:var(--red)">Liqui&nbsp;Moly</div>
+          <div class="prov-cat">Lubricantes</div>
+        </div>
+        <div class="prov-item">
+          <img class="prov-logo-img" src="https://cdn.simpleicons.org/exxonmobil" alt="Mobil" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <div class="prov-logo-fallback" style="display:none;color:#E2231A">Mobil</div>
+          <div class="prov-cat">Lubricantes</div>
+        </div>
+        <div class="prov-item">
+          <img class="prov-logo-img" src="https://cdn.simpleicons.org/bosch" alt="Bosch" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <div class="prov-logo-fallback" style="display:none;color:#EA0016">BOSCH</div>
+          <div class="prov-cat">Electrónica</div>
+        </div>
+        <div class="prov-item">
+          <img class="prov-logo-img" src="https://cdn.simpleicons.org/skf" alt="SKF" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <div class="prov-logo-fallback" style="display:none;color:#0F4B8F">SKF</div>
+          <div class="prov-cat">Rodamientos</div>
+        </div>
+        <div class="prov-item">
+          <div class="prov-logo-fallback" style="color:#003DA5">ATE</div>
+          <div class="prov-cat">Frenos</div>
+        </div>
+        <div class="prov-item">
+          <div class="prov-logo-fallback" style="color:#C8102E">NGK</div>
+          <div class="prov-cat">Encendido</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIOS ===== -->
+<section id="testimonials">
+  <div class="test-intro reveal">
+    <div class="s-tag">Reseñas</div>
+    <h2 class="s-title">LO QUE DICEN<br/><em>NUESTROS CLIENTES</em></h2>
+    <div class="test-rating"><span class="stars">★★★★★</span> 4.9 · Google Reviews</div>
+  </div>
+  <div class="test-slider-wrap">
+    <div class="test-track" id="testTrack">
+      <div class="test-card">
+        <div class="test-quote">”</div>
+        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="test-text">Llevé mi Golf a varios talleres y nadie daba con el problema. En Volkswmazda lo diagnosticaron en menos de una hora. Trabajo impecable y precio justo.</div>
+        <div class="test-author"><div class="test-avatar">C</div><div><div class="test-name">Carlos Ramírez</div><div class="test-vehicle">Volkswagen Golf 2019</div></div></div>
+      </div>
+      <div class="test-card">
+        <div class="test-quote">”</div>
+        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="test-text">El peritaje antes de comprar mi Mazda CX-5 fue muy detallado. Gracias a ese informe negocié mejor el precio. Los recomiendo al 100%.</div>
+        <div class="test-author"><div class="test-avatar">M</div><div><div class="test-name">María F. López</div><div class="test-vehicle">Mazda CX-5 2021</div></div></div>
+      </div>
+      <div class="test-card">
+        <div class="test-quote">”</div>
+        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="test-text">Mi Audi A4 fallaba en el sistema de inyección. El técnico fue muy claro explicando el problema. El carro quedó perfecto.</div>
+        <div class="test-author"><div class="test-avatar">A</div><div><div class="test-name">Andrés Moreno</div><div class="test-vehicle">Audi A4 2018</div></div></div>
+      </div>
+      <div class="test-card">
+        <div class="test-quote">”</div>
+        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="test-text">Excelente atención desde el primer momento. Me explicaron todo el proceso y el precio fue muy razonable. El Jetta quedó como nuevo.</div>
+        <div class="test-author"><div class="test-avatar">L</div><div><div class="test-name">Laura Gómez</div><div class="test-vehicle">Volkswagen Jetta 2020</div></div></div>
+      </div>
+      <div class="test-card">
+        <div class="test-quote">”</div>
+        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="test-text">Repararon el sistema de frenos de mi Mazda 3 en tiempo récord. Personal muy profesional y amable. Mi taller de confianza en Tunja.</div>
+        <div class="test-author"><div class="test-avatar">J</div><div><div class="test-name">Julián Torres</div><div class="test-vehicle">Mazda 3 2022</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="test-controls">
+    <button class="test-btn" onclick="slideTest(-1)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="test-btn" onclick="slideTest(1)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section id="cta">
+  <div class="cta-content reveal">
+    <div class="cta-tag">¿Listo para empezar?</div>
+    <div class="cta-title">TU AUTO EN<br/>LAS MEJORES MANOS</div>
+    <div class="cta-sub">Agenda tu cita hoy y experimenta la diferencia de un servicio especializado.</div>
+  </div>
+  <div class="cta-actions reveal reveal-delay-2">
+    <a href="https://wa.me/573453450000?text=Hola,%20quiero%20agendar%20una%20cita%20en%20Volkswmazda" target="_blank" class="btn-white" onclick="return true;">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Agendar por WhatsApp
+    </a>
+    <div>
+      <div class="cta-phone">+57 345 345</div>
+      <div class="cta-phone-lbl">Llámanos directo</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACTO ===== -->
+<section id="contact" style="padding:0">
+  <div class="contact-left">
+    <div class="s-tag">Ubicación y Contacto</div>
+    <h2 class="s-title">ESTAMOS<br/><em>AQUÍ</em> PARA TI</h2>
+    <div class="contact-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127487.47894165066!2d-73.4253!3d5.5353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6a7ee0b05ff26b%3A0x3e1a8c4b8f0d0f5d!2sTunja%2C%20Boyac%C3%A1%2C%20Colombia!5e0!3m2!1ses!2sco!4v1699000000000!5m2!1ses!2sco" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación Volkswmazda Tunja"></iframe>
+    </div>
+    <div class="contact-info">
+      <div class="cinfo reveal">
+        <div class="cinfo-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <div><div class="cinfo-lbl">Ubicación</div><div class="cinfo-val">Tunja, Boyacá · Colombia</div></div>
+      </div>
+      <div class="cinfo reveal reveal-delay-1">
+        <div class="cinfo-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.87-1.87a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cinfo-lbl">Teléfono</div><div class="cinfo-val"><a href="tel:+57345345">+57 345 345</a></div></div>
+      </div>
+      <div class="cinfo reveal reveal-delay-2">
+        <div class="cinfo-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="1.6"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cinfo-lbl">Email</div><div class="cinfo-val"><a href="mailto:info@volkswmazda.co">info@volkswmazda.co</a></div></div>
+      </div>
+      <div class="cinfo reveal reveal-delay-3">
+        <div class="cinfo-ico"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><polyline points="12 6 12 12 16 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cinfo-lbl">Horario de Atención</div><div class="cinfo-val">Lun – Vie: 7:00 AM – 6:00 PM</div><div class="cinfo-val" style="font-size:14px;color:var(--t2);margin-top:4px">Sábado: 8:00 AM – 2:00 PM</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <div class="s-tag">Formulario de Contacto</div>
+    <h2 class="s-title" style="margin-bottom:30px">CUÉNTANOS<br/><em>TU CASO</em></h2>
+    <div class="contact-form" id="contactForm">
+      <div class="cf-row">
+        <div class="cf-group"><label class="cf-label">Nombre *</label><input class="cf-input" type="text" id="cf-nombre" placeholder="Tu nombre completo"/></div>
+        <div class="cf-group"><label class="cf-label">Teléfono *</label><input class="cf-input" type="tel" id="cf-telefono" placeholder="Tu número de contacto"/></div>
+      </div>
+      <div class="cf-group"><label class="cf-label">Correo electrónico *</label><input class="cf-input" type="email" id="cf-email" placeholder="tu@email.com"/></div>
+      <div class="cf-row">
+        <div class="cf-group"><label class="cf-label">Marca del vehículo</label>
+          <select class="cf-select" id="cf-marca"><option value="">Seleccionar</option><option>Volkswagen</option><option>Audi</option><option>Mazda</option><option>Škoda</option><option>SEAT</option><option>Porsche</option><option>Otro</option></select>
+        </div>
+        <div class="cf-group"><label class="cf-label">Tipo de servicio</label>
+          <select class="cf-select" id="cf-servicio"><option value="">Seleccionar</option><option>Mecánica General</option><option>Mantenimiento Preventivo</option><option>Diagnóstico Computarizado</option><option>Suspensión y Frenos</option><option>Reparación de Motores</option><option>Cambio de Aceite</option><option>Otro</option></select>
+        </div>
+      </div>
+      <div class="cf-group"><label class="cf-label">Mensaje *</label><textarea class="cf-input" id="cf-mensaje" placeholder="Cuéntanos qué le pasa a tu vehículo o qué servicio necesitas..."></textarea></div>
+      <div id="cf-error" style="display:none;color:#dc2626;font-size:13px;font-family:var(--f2);font-weight:600;letter-spacing:.04em"></div>
+      <button class="cf-submit" id="cf-btn" onclick="submitForm(this)">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Enviar Solicitud
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHATSAPP FLOAT ===== -->
+<a href="https://wa.me/573453450000?text=Hola,%20necesito%20información%20sobre%20los%20servicios%20de%20Volkswmazda" target="_blank" class="wa-float" onclick="return true;" title="Escríbenos por WhatsApp">
+  <div class="wa-tooltip">¡Escríbenos ahora!</div>
+  <svg width="29" height="29" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img class="footer-logo" src="logo.png" alt="Volkswmazda" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+      <div class="footer-logo-fallback" style="display:none">VOLKSW<span>MAZDA</span></div>
+      <p class="footer-brand-desc">Centro de Servicio Especializado en Volkswagen, Audi y Mazda. Técnicos certificados, repuestos originales y garantía en cada trabajo.</p>
+      <div class="footer-social">
+        <a href="#" class="fsoc" title="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="#" class="fsoc" title="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="https://wa.me/573453450000" target="_blank" class="fsoc" title="WhatsApp" onclick="return true;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Servicios</div>
+      <div class="footer-links">
+        <a href="#services">Mecánica General</a>
+        <a href="#services">Mantenimiento Preventivo</a>
+        <a href="#services">Diagnóstico Computarizado</a>
+        <a href="#services">Suspensión y Frenos</a>
+        <a href="#services">Cambio de Aceite</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Marcas</div>
+      <div class="footer-links">
+        <a href="#brands">Volkswagen</a>
+        <a href="#brands">Audi</a>
+        <a href="#brands">Mazda</a>
+        <a href="#brands">Škoda</a>
+        <a href="#brands">SEAT</a>
+      </div>
+      <a href="login.html" class="footer-admin">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Sistema Admin
+      </a>
+    </div>
+    <div>
+      <div class="footer-col-title">Horario</div>
+      <div class="footer-links" style="gap:7px">
+        <span style="font-size:13.5px;color:#9aa3b3">Lunes – Viernes</span>
+        <span style="font-family:var(--f2);font-size:16px;font-weight:700;color:#fff">7:00 – 18:00</span>
+        <span style="font-size:13.5px;color:#9aa3b3;margin-top:6px">Sábado</span>
+        <span style="font-family:var(--f2);font-size:16px;font-weight:700;color:#fff">8:00 – 14:00</span>
+        <span style="font-size:13.5px;color:#6f7889;margin-top:6px">Domingo: Cerrado</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Volkswmazda · Centro de Servicio Especializado · Tunja, Boyacá</span>
+    <span>Volkswagen · Audi · Mazda</span>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Menú móvil
+function toggleMenu(){
+  document.getElementById('ham').classList.toggle('open');
+  document.getElementById('mob-menu').classList.toggle('open');
+}
+
+// Reveal al hacer scroll
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(r=>io.observe(r));
+
+// ===== HERO CARRUSEL (automático cada 5s) =====
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.dot');
+const slideLabels = ['Volkswagen · Servicio Premium','Mazda · Diagnóstico Avanzado','Audi · Mecánica de Precisión','Taller Certificado · Tunja'];
+let current = 0, heroTimer;
+
+function goToSlide(n){
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = (n + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+  document.getElementById('slideLabel').textContent = slideLabels[current];
+  resetHeroTimer();
+}
+function nextSlide(){ goToSlide(current + 1); }
+function resetHeroTimer(){ clearInterval(heroTimer); heroTimer = setInterval(nextSlide, 5000); }
+resetHeroTimer();
+
+// ===== TESTIMONIOS (auto cada 8s, en bucle) =====
+let testPos = 0, testTimer;
+function getVisible(){ return window.innerWidth > 1024 ? 3 : (window.innerWidth > 768 ? 2 : 1); }
+function applyTest(){
+  const track = document.getElementById('testTrack');
+  const card = track.querySelector('.test-card');
+  const gap = 20;
+  const cardWidth = card.offsetWidth + gap;
+  track.style.transform = `translateX(-${testPos * cardWidth}px)`;
+}
+function slideTest(dir){
+  const cards = document.querySelectorAll('#testTrack .test-card');
+  const maxPos = Math.max(0, cards.length - getVisible());
+  testPos += dir;
+  if(testPos > maxPos) testPos = 0;       // vuelve al inicio
+  if(testPos < 0) testPos = maxPos;       // va al final
+  applyTest();
+  resetTestTimer();
+}
+function resetTestTimer(){ clearInterval(testTimer); testTimer = setInterval(()=>slideTest(1), 8000); }
+resetTestTimer();
+window.addEventListener('resize', ()=>{ testPos = 0; applyTest(); });
+
+// ===== FORMULARIO =====
+function submitForm(btn){
+  const get = id => document.getElementById(id).value.trim();
+  const nombre = get('cf-nombre'), telefono = get('cf-telefono'), email = get('cf-email'), mensaje = get('cf-mensaje');
+  const errDiv = document.getElementById('cf-error');
+
+  if(!nombre || !telefono || !email || !mensaje){
+    errDiv.textContent = 'Por favor, completa todos los campos obligatorios (*)';
+    errDiv.style.display = 'block'; return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    errDiv.textContent = 'Por favor, ingresa un correo electrónico válido.';
+    errDiv.style.display = 'block'; return;
+  }
+  errDiv.style.display = 'none';
+
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="animation:spin .6s linear infinite"><circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,.3)" stroke-width="2"/><path d="M12 3a9 9 0 0 1 9 9" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Enviando...';
+  btn.disabled = true;
+  setTimeout(()=>{
+    btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> ¡Mensaje enviado!';
+    btn.style.background = 'var(--green)';
+    ['cf-nombre','cf-telefono','cf-email','cf-marca','cf-servicio','cf-mensaje'].forEach(id=>document.getElementById(id).value='');
+    setTimeout(()=>{ btn.innerHTML=orig; btn.disabled=false; btn.style.background=''; }, 4000);
+  }, 1400);
+}
+
+// Keyframe spin
+const st = document.createElement('style');
+st.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
+document.head.appendChild(st);
+</script>
+</body>
+</html>
