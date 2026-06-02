@@ -196,7 +196,6 @@ section{padding:108px 56px}
 .brand-pill:hover .brand-logo{filter:grayscale(0%);transform:scale(1.06)}
 .brand-logo-fallback{font-family:var(--f1);font-size:26px;letter-spacing:.04em;color:var(--t1)}
 .brand-pill-name{font-family:var(--f2);font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--t1)}
-.brand-pill-lbl{font-family:var(--f3);font-size:11px;color:var(--t3);text-align:center;line-height:1.5}
 .brands-secondary{margin:36px 0 54px}
 .brands-secondary-title{font-family:var(--f2);font-size:13px;font-weight:700;letter-spacing:.18em;color:var(--t3);text-transform:uppercase;margin-bottom:18px}
 .brands-row{display:flex;gap:14px;flex-wrap:wrap}
@@ -320,6 +319,228 @@ textarea.cf-input{resize:vertical;min-height:120px}
 @media(max-width:768px){
   .back-top{bottom:94px;right:18px;width:42px;height:42px}
 }
+/* ============ TRACKING NAV BUTTON ============ */
+.nav-track{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:8px 16px;border-radius:8px;
+  border:1.5px solid var(--acc-border);
+  background:var(--acc-soft);color:var(--acc);
+  font-family:var(--f2);font-size:13px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.nav-track:hover{background:var(--acc);color:#fff;border-color:var(--acc);box-shadow:0 6px 18px var(--acc-glow)}
+.mob-track{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:12px 24px;border-radius:10px;
+  border:1.5px solid var(--acc-border);
+  background:var(--acc-soft);color:var(--acc);
+  font-family:var(--f2);font-size:15px;font-weight:700;
+  letter-spacing:.05em;cursor:pointer;transition:all .2s;
+  margin-top:8px;
+}
+.mob-track:hover{background:var(--acc);color:#fff}
+@media(max-width:768px){.nav-track{display:none}}
+
+/* ── SweetAlert2 overrides ── */
+.swal-track-popup{border-radius:20px!important;padding:0!important;overflow:hidden!important;max-width:500px!important;width:94vw!important;font-family:'DM Sans',sans-serif!important}
+.swal-track-html{padding:0!important;margin:0!important}
+.swal2-popup.swal-track-popup{padding:0!important}
+.swal2-html-container{padding:0!important;margin:0!important;overflow:visible!important}
+.swal2-close{
+  width:36px!important;height:36px!important;
+  border-radius:50%!important;
+  background:rgba(22,26,35,.08)!important;
+  color:#565E70!important;
+  font-size:20px!important;font-weight:400!important;
+  top:12px!important;right:12px!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  transition:background .2s,color .2s!important;
+  z-index:10!important;line-height:1!important;
+}
+.swal2-close:hover{background:rgba(220,38,38,.1)!important;color:#DC2626!important}
+/* Cuando está sobre el header oscuro del resultado */
+.swal-track-popup .swal2-close{
+  background:rgba(255,255,255,.15)!important;
+  color:rgba(255,255,255,.8)!important;
+}
+.swal-track-popup .swal2-close:hover{background:rgba(255,255,255,.25)!important;color:#fff!important}
+
+/* ── Formulario de consulta ── */
+.tq-wrap{padding:36px 32px 28px}
+.tq-hero{display:flex;align-items:center;gap:18px;margin-bottom:24px}
+.tq-icon{
+  width:56px;height:56px;border-radius:16px;flex-shrink:0;
+  background:linear-gradient(135deg,#1E40AF,#2563EB);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(37,99,235,.3);
+}
+.tq-head{text-align:left}
+.tq-title{font-family:'DM Serif Display',serif;font-size:22px;color:#161A23;margin-bottom:3px;line-height:1.2}
+.tq-sub{font-size:13px;color:#565E70;line-height:1.5}
+.tq-fields{display:flex;flex-direction:column;gap:14px;margin-bottom:22px}
+.tq-field label{display:block;font-size:11px;font-weight:700;letter-spacing:.09em;color:#929AAB;text-transform:uppercase;margin-bottom:6px}
+.tq-field input{
+  width:100%;box-sizing:border-box;padding:13px 16px;
+  border-radius:10px;border:1.5px solid #E2E6EE;
+  background:#F8FAFC;
+  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;
+  color:#161A23;outline:none;
+  transition:border-color .2s,box-shadow .2s,background .2s;
+  letter-spacing:.04em;
+}
+.tq-field input:focus{border-color:#2563EB;box-shadow:0 0 0 3px rgba(37,99,235,.1);background:#fff}
+.tq-field input.err{border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.08)}
+.tq-btn{
+  width:100%;padding:15px;border-radius:12px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,#1E40AF,#2563EB);
+  color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
+  letter-spacing:.07em;text-transform:uppercase;
+  box-shadow:0 6px 20px rgba(37,99,235,.35);
+  transition:transform .15s,box-shadow .15s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.tq-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(37,99,235,.45)}
+.tq-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.tq-err{margin-top:12px;padding:11px 15px;border-radius:9px;background:rgba(220,38,38,.06);border:1px solid rgba(220,38,38,.18);font-size:13px;color:#B91C1C;font-weight:500;display:none;text-align:left}
+.tq-rate-warn{margin-top:12px;padding:11px 15px;border-radius:9px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.22);font-size:13px;color:#92400E;font-weight:500;display:none;text-align:left}
+
+/* ── Panel resultado ── */
+.tr-wrap{font-family:'DM Sans',sans-serif}
+.tr-header{
+  padding:28px 28px 22px;
+  background:linear-gradient(135deg,#0D1B3E 0%,#1E3A8A 100%);
+  position:relative;overflow:hidden;
+}
+.tr-header::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:180px;height:180px;border-radius:50%;
+  background:rgba(255,255,255,.04);
+}
+.tr-header::after{
+  content:'';position:absolute;bottom:-60px;left:-20px;
+  width:140px;height:140px;border-radius:50%;
+  background:rgba(37,99,235,.15);
+}
+.tr-header-inner{position:relative;z-index:1}
+.tr-header-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px}
+.tr-car-ico{
+  width:52px;height:52px;border-radius:14px;flex-shrink:0;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+}
+.tr-plate{font-size:22px;font-weight:800;color:#fff;letter-spacing:.1em;line-height:1}
+.tr-tipo{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:500}
+.tr-status-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 16px;border-radius:20px;
+  font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+}
+.tr-status-badge .dot{width:7px;height:7px;border-radius:50%;animation:badgePulse 2s ease-in-out infinite}
+@keyframes badgePulse{0%,100%{opacity:1}50%{opacity:.5}}
+.badge-recibido{background:rgba(37,99,235,.25);color:#93C5FD;border:1px solid rgba(37,99,235,.4)}
+.badge-inspeccion{background:rgba(245,158,11,.25);color:#FCD34D;border:1px solid rgba(245,158,11,.4)}
+.badge-finalizado{background:rgba(22,163,74,.25);color:#86EFAC;border:1px solid rgba(22,163,74,.4);animation:none}
+.badge-finalizado .dot{animation:none}
+
+/* ── Timeline ── */
+.tr-timeline{padding:26px 28px 12px;background:#fff}
+.tr-tl-title{font-size:10.5px;font-weight:700;letter-spacing:.12em;color:#929AAB;text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:8px}
+.tr-tl-title::after{content:'';flex:1;height:1px;background:#E2E6EE}
+.tl-list{display:flex;flex-direction:column}
+.tl-item{display:flex;gap:16px;align-items:flex-start}
+.tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:38px}
+.tl-dot{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:2px solid #E2E6EE;background:#F8FAFC;z-index:1;transition:all .3s}
+.tl-item.pending .tl-dot{border-color:#E2E6EE;background:#F8FAFC}
+.tl-item.done .tl-dot{background:#2563EB;border-color:#2563EB;box-shadow:0 4px 14px rgba(37,99,235,.28)}
+.tl-item.done-green .tl-dot{background:#16a34a;border-color:#16a34a;box-shadow:0 4px 14px rgba(22,163,74,.28)}
+.tl-item.active .tl-dot{border-color:#F59E0B;background:#fff;box-shadow:0 0 0 4px rgba(245,158,11,.12),0 4px 14px rgba(245,158,11,.2);animation:tlPulse 2s ease-in-out infinite}
+@keyframes tlPulse{0%,100%{box-shadow:0 0 0 4px rgba(245,158,11,.12)}50%{box-shadow:0 0 0 8px rgba(245,158,11,.06)}}
+.tl-line{width:2px;flex:1;min-height:24px;margin:3px 0;border-radius:2px;background:#E2E6EE}
+.tl-line.blue{background:linear-gradient(180deg,#2563EB,#93C5FD)}
+.tl-line.green{background:linear-gradient(180deg,#16a34a,#86EFAC)}
+.tl-line.amber{background:linear-gradient(180deg,#F59E0B,#E2E6EE)}
+.tl-content{flex:1;padding-top:8px;padding-bottom:22px;text-align:left}
+.tl-item:last-child .tl-content{padding-bottom:0}
+.tl-step-name{font-size:14px;font-weight:700;color:#161A23;margin-bottom:4px}
+.tl-item.pending .tl-step-name{color:#C3C8D4}
+.tl-datetime{font-size:12.5px;font-weight:600}
+.tl-datetime.blue{color:#2563EB}
+.tl-datetime.amber{color:#D97706}
+.tl-datetime.green{color:#16a34a}
+.tl-pending-txt{font-size:12px;color:#D1D5DB;font-style:italic}
+
+.tr-footer{
+  padding:16px 28px 22px;background:#F8FAFC;
+  border-top:1px solid #E2E6EE;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.tr-footer-note{font-size:11.5px;color:#9CA3AF;flex:1;line-height:1.4}
+.tr-back-btn{
+  padding:9px 18px;border-radius:9px;border:1.5px solid #E2E6EE;
+  background:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:600;color:#565E70;transition:all .15s;white-space:nowrap;
+}
+.tr-back-btn:hover{border-color:#2563EB;color:#2563EB;background:#EAF0FE}
+
+  position:fixed;bottom:102px;left:30px;z-index:200;
+  display:flex;align-items:center;gap:10px;
+  padding:0 20px 0 6px;height:52px;
+  background:linear-gradient(135deg,#1E40AF,#2563EB);
+  border-radius:26px;border:none;cursor:pointer;
+  box-shadow:0 6px 24px rgba(37,99,235,.45);
+  color:#fff;font-family:var(--f2);font-size:13px;font-weight:700;
+  letter-spacing:.04em;white-space:nowrap;
+  transition:transform .2s,box-shadow .2s;
+}
+  0%,100%{box-shadow:0 6px 24px rgba(37,99,235,.45)}
+  50%{box-shadow:0 6px 32px rgba(37,99,235,.7),0 0 0 8px rgba(37,99,235,.08)}
+}
+/* ── SweetAlert2 overrides ── */
+.swal-track-popup{border-radius:20px!important;padding:0!important;overflow:hidden!important;max-width:480px!important;width:94vw!important}
+.swal-track-html{padding:0!important}
+/* ── Formulario de consulta ── */
+.tq-wrap{padding:32px 28px 24px;text-align:center}
+.tq-icon{width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,#1E40AF,#2563EB);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 8px 24px rgba(37,99,235,.3)}
+.tq-title{font-family:'DM Sans',sans-serif;font-size:20px;font-weight:800;color:#161A23;margin-bottom:6px}
+.tq-sub{font-size:13px;color:#565E70;margin-bottom:24px;line-height:1.5}
+.tq-fields{display:flex;flex-direction:column;gap:12px;text-align:left;margin-bottom:20px}
+.tq-field label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;color:#929AAB;text-transform:uppercase;margin-bottom:5px}
+.tq-field input{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:10px;border:1.5px solid #E2E6EE;background:#F5F7FB;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;color:#161A23;outline:none;transition:border-color .2s,box-shadow .2s;text-transform:uppercase;letter-spacing:.06em}
+.tq-field input:focus{border-color:#2563EB;box-shadow:0 0 0 3px rgba(37,99,235,.12);background:#fff}
+.tq-field input.err{border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,.1)}
+.tq-btn{width:100%;padding:14px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,#1E40AF,#2563EB);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 6px 18px rgba(37,99,235,.35);transition:transform .15s,box-shadow .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.tq-btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(37,99,235,.45)}
+.tq-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.tq-err{margin-top:10px;padding:10px 14px;border-radius:8px;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);font-size:12.5px;color:#B91C1C;font-weight:500;display:none}
+.tq-rate-warn{margin-top:10px;padding:10px 14px;border-radius:8px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);font-size:12.5px;color:#92400E;font-weight:500;display:none}
+/* ── Panel resultado ── */
+.tr-wrap{padding:0 0 8px}
+.tr-header{margin-top:-20px;padding:24px 24px 20px;background:linear-gradient(135deg,#0F172A,#1E3A8A);color:#fff}
+.tr-header-top{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.tr-plate{font-size:22px;font-weight:400;letter-spacing:.08em;color:#fff}
+.tr-tipo{font-size:12px;color:rgba(255,255,255,.55);margin-top:2px;font-family:'DM Sans',sans-serif}
+.tr-status-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif;letter-spacing:.04em}
+.tr-status-badge .dot{width:6px;height:6px;border-radius:50%}
+.badge-recibido{background:rgba(37,99,235,.2);color:#93C5FD;border:1px solid rgba(37,99,235,.35)}
+.badge-inspeccion{background:rgba(245,158,11,.2);color:#FCD34D;border:1px solid rgba(245,158,11,.35)}
+.badge-finalizado{background:rgba(22,163,74,.2);color:#86EFAC;border:1px solid rgba(22,163,74,.35)}
+/* ── Timeline ── */
+.tr-timeline{padding:24px 24px 8px}
+.tl-item.done-green .tl-dot{background:#16a34a;border-color:#16a34a;box-shadow:0 4px 12px rgba(22,163,74,.3)}
+.tl-item.done-green:not(:last-child)::after{background:linear-gradient(180deg,#16a34a 0%,#E2E6EE 100%)}
+@keyframes tlPulse{0%,100%{box-shadow:0 0 0 4px rgba(245,158,11,.15)}50%{box-shadow:0 0 0 8px rgba(245,158,11,.08)}}
+.tl-content{flex:1;padding-top:6px}
+.tl-step-name{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:#161A23;margin-bottom:3px}
+.tl-step-name.pending{color:#929AAB}
+.tl-datetime{font-size:12px;color:#2563EB;font-weight:600;font-family:'DM Sans',sans-serif}
+.tl-datetime.green{color:#16a34a}
+.tl-pending-txt{font-size:12px;color:#C3C8D4;font-style:italic}
+.tr-footer{padding:16px 24px 20px;border-top:1px solid #E2E6EE;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.tr-footer-note{font-size:11.5px;color:#929AAB;flex:1}
+.tr-back-btn{padding:9px 18px;border-radius:9px;border:1.5px solid #E2E6EE;background:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#565E70;transition:all .15s}
+.tr-back-btn:hover{border-color:#2563EB;color:#2563EB}
+/* ============ WHATSAPP FLOAT ============ */
 .wa-float{position:fixed;bottom:30px;right:30px;z-index:200;width:62px;height:62px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 28px rgba(37,211,102,.5);transition:all .3s;animation:waPulse 3s ease-in-out infinite}
 .wa-float:hover{transform:scale(1.1)}
 @keyframes waPulse{0%,100%{box-shadow:0 6px 28px rgba(37,211,102,.5)}50%{box-shadow:0 6px 46px rgba(37,211,102,.85)}}
@@ -403,6 +624,11 @@ footer{background:#10141C;color:#cfd5e0;border-top:1px solid var(--border);paddi
   .footer-brand-desc{max-width:100%}
 }
 </style>
+<!-- Firebase SDK (punto único de declaración para toda la app pública) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- SweetAlert2 para modales pro -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -420,6 +646,10 @@ footer{background:#10141C;color:#cfd5e0;border-top:1px solid var(--border);paddi
     <a href="#contact">Contacto</a>
   </div>
   <div class="nav-right">
+    <button class="nav-track" onclick="abrirConsultaServicio()" title="Consultar estado de tu servicio">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Mi Servicio
+    </button>
     <a href="Login.html" class="nav-admin" title="Sistema administrativo">
       <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       Admin
@@ -439,6 +669,10 @@ footer{background:#10141C;color:#cfd5e0;border-top:1px solid var(--border);paddi
   <a href="#partes" onclick="toggleMenu()">Repuestos</a>
   <a href="#testimonials" onclick="toggleMenu()">Reseñas</a>
   <a href="#contact" onclick="toggleMenu()">Contacto</a>
+  <button class="mob-track" onclick="toggleMenu();abrirConsultaServicio()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Consultar mi servicio
+  </button>
   <a href="Login.html" class="nav-admin">
     <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
     Sistema Admin
@@ -539,19 +773,16 @@ footer{background:#10141C;color:#cfd5e0;border-top:1px solid var(--border);paddi
         <img class="brand-logo" src="https://cdn.simpleicons.org/volkswagen/151F2E" alt="Volkswagen" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
         <div class="brand-logo-fallback" style="display:none">VW</div>
         <div class="brand-pill-name">Volkswagen</div>
-        <div class="brand-pill-lbl">Golf · Jetta · Tiguan<br/>Polo · Touareg</div>
       </div>
       <div class="brand-pill reveal reveal-delay-1">
         <img class="brand-logo" src="https://cdn.simpleicons.org/audi/151F2E" alt="Audi" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
         <div class="brand-logo-fallback" style="display:none">AUDI</div>
         <div class="brand-pill-name">Audi</div>
-        <div class="brand-pill-lbl">A3 · A4 · A5 · A6<br/>Q3 · Q5 · Q7</div>
       </div>
       <div class="brand-pill reveal reveal-delay-2">
         <img class="brand-logo" src="https://cdn.simpleicons.org/mazda/151F2E" alt="Mazda" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
         <div class="brand-logo-fallback" style="display:none">MAZDA</div>
         <div class="brand-pill-name">Mazda</div>
-        <div class="brand-pill-lbl">Mazda 2 · 3 · 6<br/>CX-3 · CX-5 · CX-9</div>
       </div>
     </div>
   </div>
@@ -631,31 +862,33 @@ footer{background:#10141C;color:#cfd5e0;border-top:1px solid var(--border);paddi
       <h3>Marcas Premium</h3>
       <div class="prov-grid">
         <div class="prov-item">
-          <img class="prov-logo-img" src="https://cdn.simpleicons.org/liquimoly" alt="Liqui Moly" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <img class="prov-logo-img" src="./Assets/lm.png" alt="Liqui Moly" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
           <div class="prov-logo-fallback" style="display:none;color:var(--red)">Liqui&nbsp;Moly</div>
           <div class="prov-cat">Lubricantes</div>
         </div>
         <div class="prov-item">
-          <img class="prov-logo-img" src="https://cdn.simpleicons.org/exxonmobil" alt="Mobil" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <img class="prov-logo-img" src="./Assets/mb.png" alt="Mobil" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
           <div class="prov-logo-fallback" style="display:none;color:#E2231A">Mobil</div>
           <div class="prov-cat">Lubricantes</div>
         </div>
         <div class="prov-item">
-          <img class="prov-logo-img" src="https://cdn.simpleicons.org/bosch" alt="Bosch" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <img class="prov-logo-img" src="./Assets/bsc.png" alt="Bosch" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
           <div class="prov-logo-fallback" style="display:none;color:#EA0016">BOSCH</div>
           <div class="prov-cat">Electrónica</div>
         </div>
         <div class="prov-item">
-          <img class="prov-logo-img" src="https://cdn.simpleicons.org/skf" alt="SKF" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <img class="prov-logo-img" src="./Assets/skf.png" alt="SKF" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
           <div class="prov-logo-fallback" style="display:none;color:#0F4B8F">SKF</div>
           <div class="prov-cat">Rodamientos</div>
         </div>
         <div class="prov-item">
-          <div class="prov-logo-fallback" style="color:#003DA5">ATE</div>
+		  <img class="prov-logo-img" src="./Assets/ate.png" alt="ATE" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <div class="prov-logo-fallback"  style="display:none;color:#0F4B8F">ATE</div>
           <div class="prov-cat">Frenos</div>
         </div>
         <div class="prov-item">
-          <div class="prov-logo-fallback" style="color:#C8102E">NGK</div>
+		  <img class="prov-logo-img" src="./Assets/ngk.png" alt="NGK" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <div class="prov-logo-fallback"  style="display:none;color:#0F4B8F">NGK</div>
           <div class="prov-cat">Encendido</div>
         </div>
       </div>
@@ -950,7 +1183,7 @@ function goToSlide(n){
   current = (n + slides.length) % slides.length;
   slides[current].classList.add('active');
   dots[current].classList.add('active');
-  document.getElementById('slideLabel').textContent = slideLabels[current];
+  const lbl = document.getElementById('slideLabel'); if(lbl) lbl.textContent = slideLabels[current];
   resetHeroTimer();
 }
 function nextSlide(){ goToSlide(current + 1); }
@@ -1017,5 +1250,316 @@ document.head.appendChild(st);
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </button>
 
+<!-- ===== FIREBASE + MÓDULO CONSULTA SERVICIO ===== -->
+<script>
+/* ── Firebase config (único punto de declaración) ──────────────────── */
+function _initTrackDb(){
+  try{
+    const cfg = {
+      apiKey:"AIzaSyBtwmqZqZ2Hj1Xt5ogIaTqEZJXd3vKVMig",
+      authDomain:"volkswmazda-ad26d.firebaseapp.com",
+      databaseURL:"https://volkswmazda-ad26d-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId:"volkswmazda-ad26d",
+      storageBucket:"volkswmazda-ad26d.firebasestorage.app",
+      messagingSenderId:"178846757029",
+      appId:"1:178846757029:web:4d54fee13233950c8c5d4c"
+    };
+    if(typeof firebase === 'undefined') return false;
+    if(!firebase.apps || !firebase.apps.length) firebase.initializeApp(cfg);
+    window._trackDb = firebase.database();
+    return true;
+  } catch(e){ return false; }
+}
+// Intentar init inmediatamente; si falla, reintentar al cargar la página
+if(!_initTrackDb()){
+  window.addEventListener('load', _initTrackDb);
+}
+
+/* ── Rate limiter ────────────────────────────────────────────────────── */
+const RATE_KEY = 'vmz_track_attempts';
+const RATE_LOCK = 'vmz_track_lock';
+const MAX_ATTEMPTS = 3;
+const LOCK_MS = 2 * 60 * 1000; // 2 minutos
+
+function getRateState(){
+  const lock = localStorage.getItem(RATE_LOCK);
+  if(lock && Date.now() < parseInt(lock)){
+    const secs = Math.ceil((parseInt(lock) - Date.now()) / 1000);
+    return { blocked: true, secs };
+  }
+  const attempts = parseInt(localStorage.getItem(RATE_KEY)||'0');
+  return { blocked: false, attempts };
+}
+function registerAttempt(){
+  const st = getRateState();
+  if(st.blocked) return;
+  const attempts = (st.attempts||0) + 1;
+  localStorage.setItem(RATE_KEY, attempts);
+  if(attempts >= MAX_ATTEMPTS){
+    localStorage.setItem(RATE_LOCK, Date.now() + LOCK_MS);
+    localStorage.removeItem(RATE_KEY);
+  }
+}
+function resetRate(){ localStorage.removeItem(RATE_KEY); localStorage.removeItem(RATE_LOCK); }
+
+/* ── Helpers de fecha ────────────────────────────────────────────────── */
+function fmtDT(iso){
+  if(!iso) return null;
+  const d = new Date(iso);
+  return {
+    date: d.toLocaleDateString('es-CO',{weekday:'long',day:'2-digit',month:'long',year:'numeric'}),
+    time: d.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit',hour12:true})
+  };
+}
+function fmtInspDate(date, time){
+  // date: "jun 1, 2026"  time: "2:27 p.m."
+  if(!date) return null;
+  return { date, time: time||'' };
+}
+
+/* ── HTML del formulario ─────────────────────────────────────────────── */
+function htmlFormulario(rateWarn){
+  return `
+  <div class="tq-wrap">
+    <div class="tq-hero">
+      <div class="tq-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="m9 12 2 2 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="tq-head">
+        <div class="tq-title">Estado de tu servicio</div>
+        <div class="tq-sub">Ingresa la placa y cédula del propietario para consultar.</div>
+      </div>
+    </div>
+    <div class="tq-fields">
+      <div class="tq-field">
+        <label>Placa del vehículo</label>
+        <input id="tq-placa" placeholder="Ej. ABC123" maxlength="7" autocomplete="off" oninput="this.value=this.value.toUpperCase()"/>
+      </div>
+      <div class="tq-field">
+        <label>Cédula del propietario</label>
+        <input id="tq-cedula" placeholder="Tu número de cédula" maxlength="12" autocomplete="off" inputmode="numeric"/>
+      </div>
+    </div>
+    <button class="tq-btn" id="tq-submit-btn" onclick="consultarServicio()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="2"/><path d="m21 21-4.35-4.35" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+      Consultar ahora
+    </button>
+    <div class="tq-err" id="tq-err"></div>
+    ${rateWarn ? `<div class="tq-rate-warn" style="display:block">⚠️ ${rateWarn}</div>` : ''}
+  </div>`;
+}
+
+/* ── HTML del resultado ──────────────────────────────────────────────── */
+function htmlResultado(s){
+  const status   = s.inspection?.status || 'Recibido';
+  const isInsp   = status === 'En Inspección';
+  const isFin    = status === 'Finalizado';
+  const badgeClass = isFin ? 'badge-finalizado' : isInsp ? 'badge-inspeccion' : 'badge-recibido';
+  const dotColor   = isFin ? '#86EFAC' : isInsp ? '#FCD34D' : '#93C5FD';
+
+  const recibido   = fmtInspDate(s.inspection?.date, s.inspection?.time);
+  const iniciado   = s.inspection?.startedAt  ? fmtDT(s.inspection.startedAt)  : null;
+  const finalizado = s.inspection?.finishedAt ? fmtDT(s.inspection.finishedAt) : null;
+
+  // Estado de cada paso
+  const p1 = 'done';                                         // siempre completado
+  const p2 = isFin ? 'done-green' : isInsp ? 'active' : 'pending';
+  const p3 = isFin ? 'done-green' : 'pending';
+
+  // Icono pro — escudo con check / llave / bandera
+  const icoShield = `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`;
+
+  function dotIcon(state){
+    if(state==='done' || state==='done-green')
+      return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    if(state==='active')
+      return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="#F59E0B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    return `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="#D1D5DB" stroke-width="2"/></svg>`;
+  }
+
+  function tlItem(state, label, dt, amberLabel, isLast){
+    const isPending = state === 'pending';
+    let dateHtml = '';
+    if(dt){
+      const colorClass = state==='done-green' ? 'green' : state==='active' ? 'amber' : 'blue';
+      dateHtml = `<div class="tl-datetime ${colorClass}">${dt.date} · ${dt.time}</div>`;
+    } else if(state==='active'){
+      dateHtml = `<div class="tl-datetime amber">${amberLabel||'En proceso…'}</div>`;
+    } else {
+      dateHtml = `<div class="tl-pending-txt">Pendiente</div>`;
+    }
+    const lineColor = state==='done' ? 'blue' : state==='done-green' ? 'green' : state==='active' ? 'amber' : '';
+    const lineHtml = isLast ? '' : `<div class="tl-line ${lineColor}"></div>`;
+    return `
+    <div class="tl-item ${state}">
+      <div class="tl-left">
+        <div class="tl-dot">${dotIcon(state)}</div>
+        ${lineHtml}
+      </div>
+      <div class="tl-content">
+        <div class="tl-step-name">${label}</div>
+        ${dateHtml}
+      </div>
+    </div>`;
+  }
+
+  const tipoNombre = s.inspection?.tipoServicioNombre || (s.inspection?.tipoServicio?.startsWith('tipo_') ? '' : s.inspection?.tipoServicio) || '';
+  const vehicleInfo = [s.vehicle?.brand, s.vehicle?.model, s.vehicle?.year].filter(Boolean).join(' ');
+
+  return `
+  <div class="tr-wrap">
+    <div class="tr-header">
+      <div class="tr-header-inner">
+        <div class="tr-header-top">
+          <div class="tr-car-ico">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">${icoShield}</svg>
+          </div>
+          <div>
+            <div class="tr-plate">${s.vehicle?.plate||'—'}</div>
+            <div class="tr-tipo">${vehicleInfo}${vehicleInfo&&tipoNombre?' · ':''}${tipoNombre}</div>
+          </div>
+        </div>
+        <span class="tr-status-badge ${badgeClass}">
+          <span class="dot" style="background:${dotColor}"></span>
+          ${status.toUpperCase()}
+        </span>
+      </div>
+    </div>
+
+    <div class="tr-timeline">
+      <div class="tr-tl-title">Recorrido del servicio</div>
+      ${tlItem(p1, 'Vehículo recibido',    recibido,   null,                                   false)}
+      ${tlItem(p2, 'Inspección iniciada',  iniciado,   'Técnico trabajando en tu vehículo',    false)}
+      ${tlItem(p3, 'Servicio finalizado',  finalizado, null,                                   true)}
+    </div>
+
+    <div class="tr-footer">
+      <div class="tr-footer-note">Actualización en tiempo real · Solo se muestra el servicio más reciente</div>
+      <button class="tr-back-btn" onclick="abrirConsultaServicio(true)">← Nueva consulta</button>
+    </div>
+  </div>`;
+}
+/* ── Abrir modal de consulta ─────────────────────────────────────────── */
+function abrirConsultaServicio(force){
+  const st = getRateState();
+  const rateWarn = st.blocked
+    ? `Demasiados intentos. Espera ${st.secs} segundos antes de volver a consultar.`
+    : null;
+
+  Swal.fire({
+    html: htmlFormulario(rateWarn),
+    showConfirmButton: false,
+    showCloseButton: true,
+    customClass:{ popup:'swal-track-popup', htmlContainer:'swal-track-html' },
+    backdrop:'rgba(15,23,42,0.7)',
+    didOpen:()=>{
+      const inp = document.getElementById('tq-placa');
+      if(inp) inp.focus();
+      // Enter en cualquier campo → consultar
+      ['tq-placa','tq-cedula'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el) el.addEventListener('keydown', e=>{ if(e.key==='Enter') consultarServicio(); });
+      });
+      // Si bloqueado, deshabilitar botón
+      if(st.blocked){
+        const btn = document.getElementById('tq-submit-btn');
+        if(btn) btn.disabled = true;
+      }
+    }
+  });
+}
+
+/* ── Consultar en Firebase ───────────────────────────────────────────── */
+async function consultarServicio(){
+  const placa  = (document.getElementById('tq-placa')?.value||'').trim().toUpperCase();
+  const cedula = (document.getElementById('tq-cedula')?.value||'').trim();
+  const errEl  = document.getElementById('tq-err');
+  const btn    = document.getElementById('tq-submit-btn');
+
+  // Validación
+  function showErr(msg){ errEl.textContent=msg; errEl.style.display='block'; }
+  errEl.style.display='none';
+  document.getElementById('tq-placa')?.classList.remove('err');
+  document.getElementById('tq-cedula')?.classList.remove('err');
+
+  if(!placa){ document.getElementById('tq-placa')?.classList.add('err'); showErr('Ingresa la placa del vehículo.'); return; }
+  if(!cedula){ document.getElementById('tq-cedula')?.classList.add('err'); showErr('Ingresa el número de cédula.'); return; }
+
+  // Rate limit
+  const st = getRateState();
+  if(st.blocked){ showErr(`Demasiados intentos. Espera ${st.secs} segundos.`); return; }
+  registerAttempt();
+
+  // Loading
+  btn.disabled = true;
+  btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="animation:spin 1s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Consultando…`;
+
+  try {
+    // Asegurar que Firebase esté inicializado
+    if(!window._trackDb) _initTrackDb();
+    if(!window._trackDb) throw new Error('DB no disponible');
+
+    // Intentar primero con orderByChild (requiere índice en Firebase rules)
+    // Si falla, hacer query completa y filtrar en cliente
+    let all = null;
+    try {
+      const snap = await window._trackDb.ref('services').orderByChild('vehicle/plate').equalTo(placa).once('value');
+      all = snap.val();
+    } catch(idxErr){
+      console.warn('Índice no disponible, filtrando en cliente:', idxErr.message);
+      // Fallback: leer todos y filtrar por placa en cliente
+      const snap = await window._trackDb.ref('services').once('value');
+      const todos = snap.val();
+      if(todos){
+        all = {};
+        Object.entries(todos).forEach(([k,v])=>{
+          if(v?.vehicle?.plate?.toUpperCase() === placa) all[k]=v;
+        });
+        if(!Object.keys(all).length) all = null;
+      }
+    }
+    if(!all){
+      showErr('No encontramos ningún servicio con esa placa. Verifica los datos.');
+      btn.disabled=false; btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="2"/><path d="m21 21-4.35-4.35" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Consultar ahora';
+      return;
+    }
+
+    // Filtrar por cédula del propietario
+    const matches = Object.values(all).filter(s =>
+      s.owner && String(s.owner.doc||'').trim() === cedula
+    );
+
+    if(!matches.length){
+      showErr('La cédula no coincide con el propietario de este vehículo.');
+      btn.disabled=false; btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="2"/><path d="m21 21-4.35-4.35" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Consultar ahora';
+      return;
+    }
+
+    // Solo el más reciente
+    const servicio = matches.sort((a,b)=>new Date(b.createdAt||0)-new Date(a.createdAt||0))[0];
+
+    // Resetear rate limit en consulta exitosa
+    resetRate();
+
+    // Mostrar resultado
+    Swal.fire({
+      html: htmlResultado(servicio),
+      showConfirmButton: false,
+      showCloseButton: true,
+      customClass:{ popup:'swal-track-popup', htmlContainer:'swal-track-html' },
+      backdrop:'rgba(15,23,42,0.7)',
+    });
+
+  } catch(e){
+    console.error('[Consulta servicio] Error:', e);
+    showErr('Error al consultar. Verifica tu conexión e intenta de nuevo.');
+    btn.disabled=false; btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="2"/><path d="m21 21-4.35-4.35" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Consultar ahora';
+  }
+}
+</script>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 </body>
 </html>

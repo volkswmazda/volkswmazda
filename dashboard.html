@@ -2565,6 +2565,7 @@ async function abrirAtender(id){
   // Mark as En Inspección if Recibido — await so it persists to Firebase
   if(p.inspection.status==='Recibido'){
     p.inspection.status='En Inspección';
+    p.inspection.startedAt = new Date().toISOString();
     await dbSavePeritaje(p);
     showToast('Inspección iniciada · Estado actualizado en BD','ok');
     // Notificar a administradores
