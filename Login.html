@@ -82,8 +82,12 @@ input,select{font-family:inherit}
 #screen-login{flex-direction:row;overflow:hidden}
 
 /* Fondo animado */
-.login-video-wrap{position:absolute;inset:0;z-index:0; opacity:0.5}
-#bg-video{width:100%;height:100%;object-fit:cover;}
+.login-video-wrap{position:absolute;inset:0;z-index:0;background:#0a0d16}
+#bg-video{
+  width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity 1.2s ease;
+}
+#bg-video.loaded{opacity:1}
 /* Overlay sutil: el video se ve claramente, solo un velo oscuro para contraste */
 .login-video-wrap::after{
   content:'';position:absolute;inset:0;
@@ -383,8 +387,7 @@ input,select{font-family:inherit}
 
   <!-- Fondo / video -->
   <div class="login-video-wrap">
-    <video id="bg-video" autoplay muted loop playsinline>
-      <!-- Nombre original del video del cliente -->
+    <video id="bg-video" autoplay muted loop playsinline preload="metadata">
       <source src="./Assets/videos/video2.mp4" type="video/mp4">
       <source src="./Assets/videos/video2.mp4" type="video/quicktime">
     </video>
@@ -683,7 +686,7 @@ document.addEventListener('keydown', e => {
   if(e.key === 'Enter') doLogin();
 });
 
-// ── Video fallback ─────────────────────────────────────────
+// ── Video — no bloquea la UI, hace fade in cuando está listo ──────
 window.addEventListener('load', () => {
   // Mostrar logo mobile si pantalla pequeña
   if(window.innerWidth <= 900){
@@ -699,6 +702,11 @@ window.addEventListener('load', () => {
   const v = document.getElementById('bg-video');
   if(v){
     v.playbackRate = 0.65;
+    // Fade in en cuanto haya suficientes datos para reproducir
+    const showVideo = () => { v.classList.add('loaded'); };
+    v.addEventListener('canplay', showVideo, {once:true});
+    // Si tarda más de 3s igual lo mostramos con lo que haya
+    setTimeout(showVideo, 3000);
     v.play().catch(()=>{});
     v.addEventListener('error', ()=>{
       const wrap = v.closest('.login-video-wrap');
