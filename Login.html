@@ -67,6 +67,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-font-smoothing:antialiased}
 body{background:var(--bg);color:var(--t1);font-family:var(--f3);font-size:14px;overflow:hidden}
+@media(max-width:900px){body{overflow-y:auto;overflow-x:hidden}}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
 input,select{font-family:inherit}
@@ -81,11 +82,12 @@ input,select{font-family:inherit}
 #screen-login{flex-direction:row;overflow:hidden}
 
 /* Fondo animado */
-.login-video-wrap{position:absolute;inset:0;z-index:0}
+.login-video-wrap{position:absolute;inset:0;z-index:0; opacity:0.5}
 #bg-video{width:100%;height:100%;object-fit:cover;}
+/* Overlay sutil: el video se ve claramente, solo un velo oscuro para contraste */
 .login-video-wrap::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(115deg,rgba(11,14,24,.98) 0%,rgba(11,14,24,.78) 42%,rgba(11,14,24,.45) 100%)
+  background:linear-gradient(115deg,rgba(5,8,18,.35) 0%,rgba(5,8,18,.20) 55%,rgba(5,8,18,.10) 100%)
 }
 
 /* Grid overlay sutil */
@@ -145,7 +147,7 @@ input,select{font-family:inherit}
 }
 @keyframes float{0%{transform:translateY(0) translateX(0);opacity:.8}50%{opacity:.3}100%{transform:translateY(-120px) translateX(30px);opacity:0}}
 
-/* Lado derecho: panel de login */
+/* Lado derecho: panel de login — glass sobre el video */
 .login-panel{
   position:relative;z-index:5;width:420px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
@@ -221,6 +223,32 @@ input,select{font-family:inherit}
 }
 .btn-login:hover::after{left:140%;transition:left .5s ease}
 
+/* Link del logo → sitio web */
+.brand-logo-link{
+  display:flex;flex-direction:column;align-items:center;
+  text-decoration:none;color:inherit;cursor:pointer;
+  transition:opacity .2s;
+}
+.brand-logo-link:hover{opacity:.85}
+/* Hint "Ver sitio web" — aparece al hover, sutil */
+.brand-web-hint{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:10px;padding:5px 12px;
+  border:1px solid rgba(255,255,255,.18);border-radius:20px;
+  font-family:var(--f3);font-size:10.5px;font-weight:500;
+  letter-spacing:.06em;color:rgba(255,255,255,.45);
+  background:rgba(255,255,255,.05);
+  opacity:0;transform:translateY(4px);
+  transition:opacity .25s,transform .25s;
+  pointer-events:none;
+}
+.brand-logo-link:hover .brand-web-hint{
+  opacity:1;transform:translateY(0);
+}
+.mobile-logo .brand-web-hint{
+  margin-top:6px;font-size:9.5px;
+}
+
 /* Footer */
 .lc-footer{text-align:center;font-size:11px;color:rgba(255,255,255,.22);font-family:var(--f3)}
 .lc-footer span{color:rgba(37,99,235,.8);font-weight:600}
@@ -282,8 +310,45 @@ input,select{font-family:inherit}
    ==================================================== */
 @media(max-width:900px){
   .login-brand{display:none}
-  .login-panel{width:100%;border-left:none}
-  .login-panel::before{background:linear-gradient(90deg,transparent,var(--acc),transparent)}
+  /* Panel transparente — SIN blur de ningún tipo */
+  .login-panel{
+    width:100%;border-left:none;
+    background:transparent !important;
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+    display:flex;align-items:center;justify-content:center;
+    padding:20px 16px;
+    min-height:100vh;
+  }
+  #screen-login{flex-direction:column;align-items:stretch}
+  .login-panel::before{display:none}
+  /* CARD: sin blur — solo fondo semitransparente para ver el video detrás */
+  .login-card{
+    background:rgba(9,11,22,.82);
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:22px;
+    padding:36px 28px 28px;
+    max-width:420px;
+    width:100%;
+    box-shadow:0 28px 70px rgba(0,0,0,.45), 0 0 0 1px rgba(37,99,235,.15);
+    position:relative;
+  }
+  .login-card::before{
+    content:'';position:absolute;top:0;left:10%;right:10%;height:2px;
+    background:linear-gradient(90deg,transparent,var(--acc),transparent);
+    border-radius:2px;
+  }
+  /* Logo mini en mobile sobre la card */
+  .mobile-logo{
+    display:flex;flex-direction:column;align-items:center;margin-bottom:20px;
+  }
+  .mobile-logo img{height:56px;width:auto;object-fit:contain;filter:brightness(0) invert(1)}
+  .mobile-logo .brand-city{font-family:var(--f3);font-size:10px;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:5px}
+}
+@media(max-width:480px){
+  .login-card{padding:28px 18px 22px;border-radius:18px}
 }
 </style>
 </head>
@@ -333,9 +398,15 @@ input,select{font-family:inherit}
   <!-- ── Lado izquierdo: branding ── -->
   <div class="login-brand">
     <div class="brand-logo">
-      <!-- Logo real del cliente -->
-      <img src="logo.png" alt="Volkswmazda" style="height:15vh;width:auto;object-fit:contain;filter:brightness(0) invert(1);margin-bottom:8px"/>
-      <div class="brand-city">Tunja · Boyacá · Colombia</div>
+      <!-- Logo clicable → va a la página web -->
+      <a href="index.html" class="brand-logo-link" title="Ir al sitio web">
+        <img src="logo.png" alt="Volkswmazda" style="height:15vh;width:auto;object-fit:contain;filter:brightness(0) invert(1);margin-bottom:8px"/>
+        <div class="brand-city">Tunja · Boyacá · Colombia</div>
+        <div class="brand-web-hint">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Ver sitio web
+        </div>
+      </a>
     </div>
 
     <div class="hero-headline">
@@ -350,6 +421,17 @@ input,select{font-family:inherit}
   <!-- ── Lado derecho: panel de autenticación ── -->
   <div class="login-panel">
     <div class="login-card">
+      <!-- Logo solo visible en mobile — clicable → sitio web -->
+      <div class="mobile-logo" style="display:none" id="mobile-logo">
+        <a href="index.html" class="brand-logo-link" title="Ir al sitio web">
+          <img src="logo.png" alt="Volkswmazda" onerror="this.style.opacity=0"/>
+          <div class="brand-city">Tunja · Boyacá · Colombia</div>
+          <div class="brand-web-hint">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Ver sitio web
+          </div>
+        </a>
+      </div>
 
       <div class="lc-header">
         <div class="lc-icon">
@@ -359,7 +441,6 @@ input,select{font-family:inherit}
           </svg>
         </div>
         <div class="lc-title">Acceso al Sistema</div>
-        <div class="lc-sub">Volkswmazda · Panel de Gestión</div>
       </div>
 
       <!-- Error -->
@@ -512,7 +593,7 @@ async function doLogin(){
 
   // Validar que Firebase esté disponible
   if(!window._fbAuth || !window._fbSignIn){
-    showLoginError('Firebase aún se está inicializando. Espere un momento.');
+    showLoginError('El sistema aún se está iniciando. Espere un momento.');
     return;
   }
 
@@ -604,6 +685,16 @@ document.addEventListener('keydown', e => {
 
 // ── Video fallback ─────────────────────────────────────────
 window.addEventListener('load', () => {
+  // Mostrar logo mobile si pantalla pequeña
+  if(window.innerWidth <= 900){
+    const ml = document.getElementById('mobile-logo');
+    if(ml) ml.style.display = 'flex';
+  }
+  window.addEventListener('resize', ()=>{
+    const ml = document.getElementById('mobile-logo');
+    if(!ml) return;
+    ml.style.display = window.innerWidth <= 900 ? 'flex' : 'none';
+  });
   spawnParticles();
   const v = document.getElementById('bg-video');
   if(v){
@@ -665,7 +756,7 @@ setTimeout(()=>{
   if(fl && !fl.classList.contains('hidden')){
     fl.classList.add('hidden');
     setTimeout(()=>{ fl.style.display='none'; },400);
-    showToast('Firebase no conectado — revisa la configuración','warn');
+    showToast('No conectado a la base de datos — revisa tu conexión','warn');
   }
 }, 4000);
 

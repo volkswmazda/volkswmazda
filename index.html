@@ -41,7 +41,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-body{background:var(--bg);color:var(--t1);font-family:var(--f3);overflow-x:hidden;line-height:1.5}
+body{background:var(--bg);color:var(--t1);font-family:var(--f3);overflow-x:hidden;line-height:1.5;width:100%}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
 img{display:block;max-width:100%}
@@ -86,7 +86,7 @@ nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 4px 24px rgba(23,32,5
 }
 .nav-cta:hover{background:var(--acc2);box-shadow:0 10px 28px var(--acc-glow);transform:translateY(-2px)}
 .nav-ham{display:none;flex-direction:column;gap:5px;padding:6px;cursor:pointer}
-.nav-ham span{display:block;width:24px;height:2px;background:var(--t1);border-radius:2px;transition:all .3s}
+.nav-ham span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
 .nav-ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
 .nav-ham.open span:nth-child(2){opacity:0}
 .nav-ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
@@ -98,7 +98,7 @@ nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 4px 24px rgba(23,32,5
 .mob-menu.open{display:flex}
 .mob-menu a{font-family:var(--f1);font-size:38px;letter-spacing:.04em;color:var(--t2);transition:color .2s}
 .mob-menu a:hover{color:var(--acc)}
-.mob-menu .nav-admin{font-size:16px;padding:12px 24px}
+.mob-menu .nav-admin{font-size:16px;padding:12px 24px;color:var(--acc);border-color:var(--acc-border);background:var(--acc-soft)}
 
 /* ============ HERO CARRUSEL ============ */
 #hero{min-height:100vh;position:relative;display:flex;align-items:center;padding:0 56px;overflow:hidden}
@@ -121,8 +121,8 @@ nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 4px 24px rgba(23,32,5
 .carousel-dots{position:absolute;bottom:46px;left:56px;z-index:4;display:flex;gap:10px}
 .dot{width:30px;height:4px;border-radius:4px;background:rgba(255,255,255,.30);cursor:pointer;transition:all .35s;border:none;padding:0}
 .dot.active{background:var(--acc);width:54px;box-shadow:0 0 16px var(--acc-glow)}
-.slide-label{position:absolute;bottom:46px;right:56px;z-index:4;font-family:var(--f2);font-size:12px;font-weight:600;letter-spacing:.18em;color:rgba(255,255,255,.55);text-transform:uppercase;text-align:right;display:flex;align-items:center;gap:10px}
-.slide-label::before{content:'';width:26px;height:1px;background:rgba(255,255,255,.4)}
+.slide-label{display:none}
+
 
 .hero-content{position:relative;z-index:3;max-width:780px;animation:heroIn 1s cubic-bezier(.22,1,.36,1) both}
 @keyframes heroIn{from{opacity:0;transform:translateY(44px)}to{opacity:1;transform:translateY(0)}}
@@ -303,7 +303,25 @@ textarea.cf-input{resize:vertical;min-height:120px}
 .cf-submit{width:100%;padding:17px;background:var(--acc);color:#fff;font-family:var(--f2);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;border-radius:10px;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 24px var(--acc-glow)}
 .cf-submit:hover{background:var(--acc2);box-shadow:0 14px 36px var(--acc-glow);transform:translateY(-2px)}
 
-/* ============ WHATSAPP FLOAT ============ */
+/* ============ BACK TO TOP ============ */
+.back-top{
+  position:fixed;bottom:102px;right:30px;z-index:200;
+  width:46px;height:46px;border-radius:50%;
+  background:var(--acc);
+  border:none;
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  box-shadow:0 6px 22px var(--acc-glow);
+  opacity:0;pointer-events:none;
+  transform:translateY(12px);
+  transition:opacity .3s,transform .3s,background .2s;
+}
+.back-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+.back-top:hover{background:var(--acc2);box-shadow:0 8px 28px var(--acc-glow);}
+@media(max-width:768px){
+  .back-top{bottom:94px;right:18px;width:42px;height:42px}
+}
 .wa-float{position:fixed;bottom:30px;right:30px;z-index:200;width:62px;height:62px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 28px rgba(37,211,102,.5);transition:all .3s;animation:waPulse 3s ease-in-out infinite}
 .wa-float:hover{transform:scale(1.1)}
 @keyframes waPulse{0%,100%{box-shadow:0 6px 28px rgba(37,211,102,.5)}50%{box-shadow:0 6px 46px rgba(37,211,102,.85)}}
@@ -359,15 +377,32 @@ footer{background:#10141C;color:#cfd5e0;border-top:1px solid var(--border);paddi
 @media(max-width:768px){
   .nav-links,.nav-cta{display:none}
   .nav-ham{display:flex}
-  .nav-admin{display:none}
+  .nav-right .nav-admin{display:none}
   .srv-grid{grid-template-columns:1fr}
   .brands-visual{grid-template-columns:1fr}
   .brands-feat{grid-template-columns:1fr}
   .prov-grid{grid-template-columns:repeat(2,1fr)}
   .footer-top{grid-template-columns:1fr}
   .cf-row{grid-template-columns:1fr}
-  .test-card{min-width:300px;max-width:300px}
+  .test-card{min-width:calc(100vw - 52px);max-width:calc(100vw - 52px)}
   .slide-label{display:none}
+  /* Prevenir overflow horizontal en mobile */
+  .partes-items{grid-template-columns:1fr}
+  .parte-item{width:100%;box-sizing:border-box}
+  .partes-block{padding:24px 18px}
+  .brands-row{gap:10px}
+  .brand-chip{padding:10px 14px;flex:0 1 auto;min-width:0}
+  .prov-grid{grid-template-columns:1fr 1fr}
+  section{padding:64px 16px}
+  .srv-card{min-height:260px}
+  .hero-btns{flex-direction:column;align-items:flex-start;gap:12px}
+  .btn-prim,.btn-ghost{width:100%;max-width:340px;justify-content:center;box-sizing:border-box}
+  #cta{padding:60px 16px}
+  .cta-phone{font-size:24px}
+  .contact-left{padding:50px 16px}
+  .contact-right{padding:50px 16px}
+  footer{padding:42px 16px 20px}
+  .footer-brand-desc{max-width:100%}
 }
 </style>
 </head>
@@ -439,7 +474,7 @@ footer{background:#10141C;color:#cfd5e0;border-top:1px solid var(--border);paddi
     </div>
   </div>
 
-  <div class="slide-label" id="slideLabel">Volkswagen · Servicio Premium</div>
+  
   <div class="carousel-dots">
     <button class="dot active" onclick="goToSlide(0)"></button>
     <button class="dot" onclick="goToSlide(1)"></button>
@@ -582,7 +617,7 @@ footer{background:#10141C;color:#cfd5e0;border-top:1px solid var(--border);paddi
   <div class="partes-grid">
     <div class="partes-block reveal">
       <div class="partes-block-title">Repuestos más utilizados</div>
-      <h3>Partes &amp; Insumos</h3>
+      <h3>Partes e Insumos</h3>
       <div class="partes-items">
         <div class="parte-item">
           <div class="parte-item-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2.5S6 9 6 14a6 6 0 0 0 12 0c0-5-6-11.5-6-11.5z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -824,6 +859,7 @@ footer{background:#10141C;color:#cfd5e0;border-top:1px solid var(--border);paddi
 // Nav scroll
 window.addEventListener('scroll',()=>{
   document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 40);
+  document.getElementById('back-top').classList.toggle('visible', window.scrollY > 400);
 });
 
 // Menú móvil
@@ -912,5 +948,10 @@ const st = document.createElement('style');
 st.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
 document.head.appendChild(st);
 </script>
+<!-- ===== BACK TO TOP ===== -->
+<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
 </body>
 </html>

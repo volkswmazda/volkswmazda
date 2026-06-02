@@ -505,7 +505,13 @@ input,select,textarea{font-family:inherit}
 /* Tip box */
 .cat-tip{display:flex;gap:10px;align-items:flex-start;padding:11px 14px;background:#F0F9FF;border:1px solid #BAE6FD;border-radius:8px;margin-bottom:16px}
 .cat-tip-txt{font-size:12px;color:#0369A1;line-height:1.55}
-@media(max-width:900px){.cat-page-layout{grid-template-columns:1fr}.cat-tipo-tabs{display:none}}
+@media(max-width:900px){
+  .cat-page-layout{grid-template-columns:1fr}
+  .cat-tipo-tabs{display:block}
+  /* En mobile el panel izq se muestra arriba como lista horizontal scrollable */
+  #cat-tipo-tabs-list{display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px}
+  .cat-tipo-tab{width:auto;flex:0 0 auto}
+}
 /* TÉCNICO PANEL */
 .tech-hero{
   background:linear-gradient(135deg,#0C1A3D 0%,#1D4ED8 60%,#2563EB 100%);
@@ -919,6 +925,39 @@ input,select,textarea{font-family:inherit}
   #bg-video{width:100%;height:100%;object-fit:cover}
   .login-panel{width:85%;max-width:100%;flex:unset;display:flex;align-items:center;justify-content:center;padding:40px 20px;background:rgba(6,6,8,.05);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-left:none;position:relative;z-index:5;border-radius: 20px;}
   .login-card{padding:0 10px;width:100%;max-width:360px}
+
+  /* ── FORM MULTI-STEP FIX MOBILE ── */
+  /* Owner lookup: tipo-doc + número en columna, bien alineados */
+  .owner-lookup-row{flex-direction:column;gap:10px;align-items:stretch}
+  .owner-lookup-row .ff{flex:1 1 auto;min-width:0;width:100%}
+  /* Evitar que el input de documento se solape con la validación visual */
+  .owner-lookup-row input[type="text"],
+  .owner-lookup-row input[type="number"]{
+    position:relative;z-index:1;background:var(--card)
+  }
+  /* Todos los campos del form: ancho 100%, sin overflow */
+  .fs-body .ff{width:100%;min-width:0}
+  .fs-body .fi,.fs-body select,.fs-body textarea{
+    width:100%;box-sizing:border-box;min-width:0;max-width:100%
+  }
+  /* Grids del form en mobile → 1 columna */
+  .fg2,.fg3,.fg4{grid-template-columns:1fr !important}
+  /* Botones nav del form: tamaños equilibrados */
+  .fs-nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .fs-nav .btn-prim,.fs-nav .btn-sec{
+    flex:1 1 auto;min-width:120px;font-size:13px;
+    padding:12px 16px;justify-content:center;
+    box-sizing:border-box
+  }
+  /* Volver: mismo peso visual que Continuar */
+  .fs-nav .btn-sec{
+    flex:0 0 auto;min-width:90px;max-width:140px
+  }
+  /* Cards de tipo de servicio: wrap correcto */
+  .tipo-cards-wrap{display:flex;flex-wrap:wrap;gap:10px}
+  .tipo-card{width:auto;flex:0 0 auto}
+  /* Preview categorías en asignación */
+  .cat-preview-card{width:100%;box-sizing:border-box}
 }
 </style>
 </head>
@@ -3373,37 +3412,30 @@ async function generatePDF(p, opts={}){
   const scoreLabel = pct>=80 ? 'Excelente condición' : pct>=50 ? 'Condición aceptable' : 'Requiere atención';
   const cardH=36;
 
-  // Card oscura
-  doc.setFillColor(17,24,39);
-  rr(mL,y,cW,cardH,5,'F');
+  // Card clara (gris suave, no oscura)
+  doc.setFillColor(241,245,249);
+  doc.setDrawColor(226,232,240);doc.setLineWidth(0.3);
+  rr(mL,y,cW,cardH,5,'FD');
 
   // ── Donut ────────────────────────────────────────────────────────────
   const R=13, ri=9;      // radio exterior e interior
   const cx=mL+20+R, cy=y+cardH/2;
 
-  // Halo / sombra
-  doc.setFillColor(26,35,52); doc.circle(cx,cy,R+2,'F');
-  // Fondo del ring (gris oscuro)
-  doc.setFillColor(38,52,74); doc.circle(cx,cy,R,'F');
-  // Agujero interior
-  doc.setFillColor(17,24,39); doc.circle(cx,cy,ri,'F');
+  // Halo / sombra (clara)
+  doc.setFillColor(226,232,240); doc.circle(cx,cy,R+2,'F');
+  // Fondo del ring (gris claro)
+  doc.setFillColor(203,213,225); doc.circle(cx,cy,R,'F');
+  // Agujero interior (mismo que fondo de card)
+  doc.setFillColor(241,245,249); doc.circle(cx,cy,ri,'F');
   // Progreso: anillo de color encima del ring, luego agujero de nuevo
   doc.setFillColor(...scoreColor); doc.circle(cx,cy,R,'F');
-  doc.setFillColor(17,24,39);    doc.circle(cx,cy,ri,'F');
+  doc.setFillColor(241,245,249);    doc.circle(cx,cy,ri,'F');
   // Si pct<100: tapa el arco no completado con el gris del ring
-  // Simulación simple: si pct<100, cubrimos con el color de fondo del ring
-  // la proporción no completada usando un rectángulo que cubre la mitad derecha
   if(pct<100){
     const angle=Math.PI*2*(pct/100); // ángulo de progreso en rad
-    // Cubrimos con el gris de fondo usando un rectángulo grande girado
-    // jsPDF no soporta clipping path fácilmente, así que usamos
-    // la técnica de cubrir zonas: rellenamos el ring con gris excepto el sector
-    // Aproximación visual: mostramos el porcentaje en el center y el ring en color
-    // con el fondo gris para dar la ilusión de donut parcial
-    doc.setFillColor(38,52,74); doc.circle(cx,cy,R,'F');
-    doc.setFillColor(17,24,39); doc.circle(cx,cy,ri,'F');
+    doc.setFillColor(203,213,225); doc.circle(cx,cy,R,'F');
+    doc.setFillColor(241,245,249); doc.circle(cx,cy,ri,'F');
     // Sectores de color usando triángulos (aproximación para pct parcial)
-    // Dibujamos el sector lleno con triángulos desde el centro del círculo completo
     const steps=36;
     const filled=Math.round(steps*pct/100);
     doc.setFillColor(...scoreColor);
@@ -3415,12 +3447,12 @@ async function generatePDF(p, opts={}){
       doc.triangle(cx,cy,x1,y1,x2,y2,'F');
     }
     // Agujero interior otra vez
-    doc.setFillColor(17,24,39); doc.circle(cx,cy,ri,'F');
+    doc.setFillColor(241,245,249); doc.circle(cx,cy,ri,'F');
     // Ring exterior fino decorativo
-    doc.setDrawColor(38,52,74);doc.setLineWidth(0.3);doc.circle(cx,cy,R,'S');
+    doc.setDrawColor(203,213,225);doc.setLineWidth(0.3);doc.circle(cx,cy,R,'S');
   }
 
-  // Número centrado — tamaño adaptado al nº de dígitos
+  // Número centrado — tamaño adaptado al nº de dígitos — texto oscuro para contraste
   const pctStr=pct+'%';
   const fSz=pct===100?9:pct>=10?10.5:12;
   doc.setFont('helvetica','bold');doc.setFontSize(fSz);doc.setTextColor(...scoreColor);
@@ -3432,10 +3464,10 @@ async function generatePDF(p, opts={}){
   doc.setFont('helvetica','bold');doc.setFontSize(12.5);doc.setTextColor(...scoreColor);
   doc.text(scoreLabel,tx,cy-1.5);
 
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(107,114,128);
+  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(71,85,105);
   doc.text('Condición general del vehículo',tx,cy+6);
 
-  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(71,85,105);
+  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,116,139);
   doc.text(rated+' ítem'+(rated!==1?'s':'')+' evaluado'+(rated!==1?'s':''),tx,cy+12.5);
 
   y+=cardH+10;
@@ -3744,7 +3776,7 @@ async function saveTipo(){
     const existing=editId?getTipos().find(x=>x.id===editId):null;
     await fbSaveTipo(id,{id,nombre,descripcion,activo,creado:existing?.creado||new Date().toISOString()});
     closeMod('mod-tipo');
-    showToast(editId?'Tipo actualizado en Firebase':'Tipo creado en Firebase','ok');
+    showToast(editId?'Tipo actualizado exitosamente':'Tipo creado exitosamente','ok');
   }catch(err){
     showToast('Error: '+err.message,'err');
   }finally{
@@ -3956,7 +3988,7 @@ async function saveCat(){
     const existing=editId?getCats().find(x=>x.id===editId):null;
     await fbSaveCat(id,{id,nombre,tipoId,items,creado:existing?.creado||new Date().toISOString()});
     closeMod('mod-cat');
-    showToast(editId?'Categoría actualizada en Firebase':'Categoría creada en Firebase','ok');
+    showToast(editId?'Categoría actualizada exitosamente':'Categoría creada exitosamente','ok');
   }catch(err){
     showToast('Error: '+err.message,'err');
   }finally{
@@ -4001,7 +4033,7 @@ function startUsersListener(){
     _syncAdminIndex();
   }, (err) => {
     console.error('[Firebase] users listener error:', err);
-    showToast('Error leyendo usuarios de Firebase', 'err');
+    showToast('Error al leer los usuarios. Revisa tu conexión', 'err');
     _usersListenerActive = false;
   });
 }
@@ -4109,10 +4141,9 @@ async function saveUser(){
     const userData = {uid:editId, name:nombre, email, role:rol,
                       city:ciudad, active:activo, techName:nombre, display:nombre};
     if(!window._fbDb || !window._fbRef || !window._fbUpdate){
-      showToast('Firebase no disponible','err'); return;
-    }
+      showToast('Sin conexión a la base de datos','err'); return;    }
     btn.disabled=true; btn.textContent='Guardando...';
-    showMsg('Actualizando en Firebase...');
+    showMsg('Guardando cambios...');
     try{
       await window._fbUpdate(window._fbRef(window._fbDb, 'users/'+editId), userData);
       btn.disabled=false; btn.textContent='Guardar Cambios';
@@ -4131,7 +4162,7 @@ async function saveUser(){
       showToast('Ya existe un usuario con ese correo','err');return;
     }
     if(!window._fbAuth||!window._fbCreateUser){
-      showToast('Firebase Auth no disponible','err');return;
+      showToast('Sin conexión al sistema de autenticación','err');return;
     }
     btn.disabled=true; btn.textContent='Creando...';
     showMsg('Creando usuario...');
@@ -4177,11 +4208,11 @@ async function saveUser(){
 async function deleteUser(uid, nombre){
   if(!await vmzConfirm(
     `¿Eliminar a ${nombre}?`,
-    'Se eliminará de la base de datos. La cuenta de autenticación de Firebase debe eliminarse manualmente desde la consola de Firebase.',
+    'Se eliminará de la base de datos. Si el usuario tiene cuenta de acceso, deberás revocarla manualmente desde el sistema de administración.',
     {danger:true, confirm:'Sí, eliminar', cancel:'Cancelar'}
   )) return;
   if(!window._fbDb||!window._fbRef||!window._fbRemove){
-    showToast('Firebase no disponible','err');return;
+    showToast('Sin conexión a la base de datos','err');return;
   }
   try{
     await window._fbRemove(window._fbRef(window._fbDb,'users/'+uid));
