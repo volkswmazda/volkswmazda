@@ -8,7 +8,7 @@ window.VMZ_CONFIG = {
   whatsapp: '573116894097',
 
   // Número mostrado visualmente en la página
-  telefonoDisplay: '+57 311 689 40 977',
+  telefonoDisplay: '+57 311 689 40 97',
 
   // Correo de contacto
   email: 'volkswmazda@gmail.com',
