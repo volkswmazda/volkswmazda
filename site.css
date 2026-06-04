@@ -342,7 +342,7 @@ textarea.cf-input{resize:vertical;min-height:120px}
 .swal-track-popup{border-radius:20px!important;padding:0!important;overflow:hidden!important;max-width:500px!important;width:94vw!important;font-family:'DM Sans',sans-serif!important}
 .swal-track-html{padding:0!important;margin:0!important}
 .swal2-popup.swal-track-popup{padding:0!important}
-.swal2-html-container{padding:0!important;margin:0!important;overflow:visible!important}
+.swal2-html-container{padding:0!important;margin:0!important;overflow:visible!important; margin-top: -15px !important;}
 .swal2-close{
   width:36px!important;height:36px!important;
   border-radius:50%!important;
