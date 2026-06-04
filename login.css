@@ -1,0 +1,312 @@
+/* ============================================================
+   VOLKSWMAZDA · LOGIN — azul corporativo (naranja→azul)
+   ============================================================ */
+:root{
+  /* Consistent with dashboard palette */
+  --acc:#2563EB;--acc2:#1D4ED8;--acc3:#1E40AF;
+  --acc-glow:rgba(37,99,235,0.2);--acc-border:rgba(37,99,235,0.28);--acc-bg:rgba(37,99,235,0.08);
+  /* Dark surfaces */
+  --bg:#0B0E18;--bg2:#111422;--bg3:#161928;
+  --card:#141720;--card2:#1A1D2E;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --t1:#F1F2F6;--t2:#8B92A8;--t3:#4E5568;
+  --green:#16A34A;--green-bg:rgba(22,163,74,0.1);--green-border:rgba(22,163,74,0.25);
+  --orange:#D97706;
+  /* Typography */
+  --f1:'DM Sans',sans-serif;
+  --f2:'DM Sans',sans-serif;
+  --f3:'Inter',sans-serif;
+  --shadow:0 1px 3px rgba(0,0,0,.2),0 1px 2px rgba(0,0,0,.15);
+  --shadow-md:0 4px 16px rgba(0,0,0,.3);
+  --shadow-lg:0 12px 36px rgba(0,0,0,.4);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--t1);font-family:var(--f3);font-size:14px;overflow:hidden}
+@media(max-width:900px){body{overflow-y:auto;overflow-x:hidden}}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+input,select{font-family:inherit}
+
+/* ---- SCREEN SYSTEM ---- */
+.screen{position:fixed;inset:0;z-index:10;display:none;flex-direction:column}
+.screen.active{display:flex}
+
+/* ====================================================
+   LOGIN SCREEN
+   ==================================================== */
+#screen-login{flex-direction:row;overflow:hidden}
+
+/* Fondo animado */
+.login-video-wrap{opacity:0.5;position:absolute;inset:0;z-index:0;background:#0a0d16}
+#bg-video{
+  width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity 1.2s ease;
+}
+#bg-video.loaded{opacity:1}
+/* Overlay sutil: el video se ve claramente, solo un velo oscuro para contraste */
+.login-video-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(115deg,rgba(5,8,18,.35) 0%,rgba(5,8,18,.20) 55%,rgba(5,8,18,.10) 100%)
+}
+
+/* Grid overlay sutil */
+.grid-overlay{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(37,99,235,.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(37,99,235,.02) 1px,transparent 1px);
+  background-size:80px 80px
+}
+
+/* Línea de escaneo azul */
+.scan-line{
+  position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--acc),transparent);
+  opacity:.25;z-index:2;animation:scan 10s linear infinite
+}
+@keyframes scan{0%{top:0}100%{top:100%}}
+
+/* Lado izquierdo: branding */
+.login-brand{
+  position:relative;z-index:5;flex:1;display:flex;flex-direction:column;
+  justify-content:center;padding:60px 80px;
+  animation:fadeUp .9s cubic-bezier(.22,1,.36,1) both
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+
+.brand-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:40px}
+.brand-emblem{
+  width:54px;height:54px;
+  filter:drop-shadow(0 0 18px rgba(29,111,232,.55))
+}
+.brand-name{font-family:var(--f1);font-size:28px;font-weight:700;letter-spacing:-.01em;line-height:1;margin-top:8px}
+.brand-city{font-family:var(--f3);font-size:10px;letter-spacing:.1em;color:var(--t3);text-transform:uppercase;margin-top:3px;font-weight:500}
+
+.hero-headline{
+  font-family:var(--f1);
+  font-size:clamp(40px, 4vw, 84px);
+  line-height:.9;letter-spacing:-.02em;margin-bottom:24px;font-weight:700;
+  text-align: center;
+}
+.hero-headline em{color:var(--acc);font-style:normal;display:block}
+
+.bstat{display:flex;flex-direction:column}
+.bstat-num{font-family:var(--f3);font-size:34px;letter-spacing:-.03em;line-height:1;font-weight:700;color:var(--t1)}
+.bstat-lbl{font-family:var(--f3);font-size:10px;letter-spacing:.07em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-top:2px;font-weight:500}
+.bstat-div{width:1px;height:36px;background:rgba(255,255,255,.08)}
+
+.bmark{font-family:var(--f3);font-size:10.5px;letter-spacing:.12em;color:rgba(255,255,255,.3);font-weight:500}
+.bmark-sep{color:rgba(37,99,235,.6);font-size:8px}
+
+/* Partículas decorativas */
+.particle{
+  position:absolute;border-radius:50%;pointer-events:none;z-index:1;
+  background:rgba(37,99,235,.2);filter:blur(1px);
+  animation:float linear infinite
+}
+@keyframes float{0%{transform:translateY(0) translateX(0);opacity:.8}50%{opacity:.3}100%{transform:translateY(-120px) translateX(30px);opacity:0}}
+
+/* Lado derecho: panel de login — glass sobre el video */
+.login-panel{
+  position:relative;z-index:5;width:420px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(9,11,22,.88);
+  backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);
+  border-left:1px solid rgba(255,255,255,.06);
+  animation:fadeUp .9s .15s cubic-bezier(.22,1,.36,1) both
+}
+/* Borde superior azul en el panel */
+.login-panel::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--acc),var(--acc),transparent)
+}
+
+.login-card{width:100%;max-width:320px;display:flex;flex-direction:column;gap:22px;padding:0 40px}
+
+/* Cabecera del card */
+.lc-header{text-align:center}
+.lc-icon{
+  width:48px;height:48px;margin:0 auto 14px;border-radius:14px;
+  background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.22);
+  display:flex;align-items:center;justify-content:center
+}
+.lc-icon svg{color:var(--acc)}
+.lc-title{font-family:var(--f1);font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--t1)}
+.lc-sub{font-size:11px;color:rgba(255,255,255,.28);letter-spacing:.08em;text-transform:uppercase;margin-top:4px;font-weight:500}
+
+/* Error */
+.lc-error{
+  display:none;align-items:center;gap:8px;padding:10px 14px;
+  background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.22);
+  border-radius:8px;font-size:12.5px;color:#FCA5A5;
+  animation:shake .4s ease
+}
+.lc-error.show{display:flex}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
+/* Formulario */
+.lc-form{display:flex;flex-direction:column;gap:16px}
+.lf-group{display:flex;flex-direction:column;gap:7px}
+.lf-label{font-family:var(--f3);font-size:11.5px;font-weight:500;letter-spacing:.02em;color:rgba(255,255,255,.4)}
+.lf-wrap{position:relative;display:flex;align-items:center}
+.lf-icon{position:absolute;left:13px;color:rgba(255,255,255,.28);pointer-events:none;flex-shrink:0}
+.lf-input{
+  width:100%;padding:12px 13px 12px 42px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);
+  border-radius:9px;color:var(--t1);font-size:14px;outline:none;
+  transition:all .2s;caret-color:var(--acc);font-family:var(--f3)
+}
+.lf-input::placeholder{color:rgba(255,255,255,.22)}
+.lf-input:focus{border-color:rgba(37,99,235,.5);background:rgba(37,99,235,.06);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+.eye-btn{position:absolute;right:12px;color:rgba(255,255,255,.28);padding:4px;transition:color .15s;background:none;border:none;cursor:pointer}
+.eye-btn:hover{color:rgba(255,255,255,.75)}
+
+/* Botón de login */
+.btn-login{
+  width:100%;padding:13px 24px;background:var(--acc);color:#fff;
+  font-family:var(--f3);font-weight:600;font-size:14px;letter-spacing:-.01em;
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  gap:10px;position:relative;overflow:hidden;transition:all .25s;
+  box-shadow:0 2px 10px rgba(37,99,235,.4)
+}
+.btn-login:hover{background:var(--acc2);box-shadow:0 6px 22px rgba(37,99,235,.45);transform:translateY(-1px)}
+.btn-login.loading{opacity:.75;pointer-events:none}
+.spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .65s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Shimmer en el botón */
+.btn-login::after{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);
+  transform:skewX(-20deg);transition:none
+}
+.btn-login:hover::after{left:140%;transition:left .5s ease}
+
+/* Link del logo → sitio web */
+.brand-logo-link{
+  display:flex;flex-direction:column;align-items:center;
+  text-decoration:none;color:inherit;cursor:pointer;
+  transition:opacity .2s;
+}
+.brand-logo-link:hover{opacity:.85}
+/* Hint "Ver sitio web" — aparece al hover, sutil */
+.brand-web-hint{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:10px;padding:5px 12px;
+  border:1px solid rgba(255,255,255,.18);border-radius:20px;
+  font-family:var(--f3);font-size:10.5px;font-weight:500;
+  letter-spacing:.06em;color:rgba(255,255,255,.45);
+  background:rgba(255,255,255,.05);
+  opacity:0;transform:translateY(4px);
+  transition:opacity .25s,transform .25s;
+  pointer-events:none;
+}
+.brand-logo-link:hover .brand-web-hint{
+  opacity:1;transform:translateY(0);
+}
+.mobile-logo .brand-web-hint{
+  margin-top:6px;font-size:9.5px;
+}
+
+/* Footer */
+.lc-footer{text-align:center;font-size:11px;color:rgba(255,255,255,.22);font-family:var(--f3)}
+.lc-footer span{color:rgba(37,99,235,.8);font-weight:600}
+
+/* Estado de carga Firebase */
+.firebase-loading{
+  position:fixed;inset:0;z-index:999;background:#0B0E18;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  transition:opacity .4s
+}
+.firebase-loading.hidden{opacity:0;pointer-events:none}
+.fb-spinner{
+  width:36px;height:36px;border:2.5px solid rgba(37,99,235,.15);
+  border-top-color:var(--acc);border-radius:50%;animation:spin .75s linear infinite
+}
+.fb-loading-text{font-family:var(--f3);font-size:11.5px;letter-spacing:.1em;color:rgba(255,255,255,.28);text-transform:uppercase;font-weight:500}
+
+/* ====================================================
+   REDIRECT OVERLAY (tras login exitoso)
+   ==================================================== */
+.redirect-overlay{
+  position:fixed;inset:0;z-index:998;
+  background:rgba(11,14,24,.96);backdrop-filter:blur(16px);
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px
+}
+.redirect-overlay.show{display:flex}
+.redirect-icon{
+  width:72px;height:72px;border-radius:50%;
+  background:rgba(37,99,235,.12);border:2px solid var(--acc);
+  display:flex;align-items:center;justify-content:center;
+  animation:pulse-icon 1.2s ease-in-out infinite
+}
+@keyframes pulse-icon{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.3)}50%{box-shadow:0 0 0 16px rgba(37,99,235,0)}}
+.redirect-title{font-family:var(--f1);font-size:30px;letter-spacing:-.02em;font-weight:700;color:var(--t1)}
+.redirect-role{
+  font-family:var(--f3);font-size:11px;letter-spacing:.08em;color:#93B4FF;
+  text-transform:uppercase;padding:5px 14px;border:1px solid rgba(37,99,235,.25);
+  border-radius:20px;background:rgba(37,99,235,.1);font-weight:500
+}
+.redirect-msg{font-size:13px;color:rgba(255,255,255,.35);font-family:var(--f3)}
+
+/* ====================================================
+   TOAST
+   ==================================================== */
+.toast{
+  position:fixed;bottom:24px;right:24px;z-index:9999;
+  padding:11px 16px;border-radius:10px;font-family:var(--f3);font-size:13px;font-weight:500;
+  letter-spacing:-.01em;display:flex;align-items:center;gap:9px;
+  transform:translateY(16px);opacity:0;transition:all .3s cubic-bezier(.22,1,.36,1);
+  pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.3)
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.ok{background:rgba(22,163,74,.12);border:1px solid rgba(22,163,74,.25);color:#86EFAC}
+.toast.err{background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.25);color:#FCA5A5}
+.toast.warn{background:rgba(217,119,6,.12);border:1px solid rgba(217,119,6,.25);color:#FCD34D}
+
+/* ====================================================
+   RESPONSIVE
+   ==================================================== */
+@media(max-width:900px){
+  .login-brand{display:none}
+  /* Panel transparente — SIN blur de ningún tipo */
+  .login-panel{
+    width:100%;border-left:none;
+    background:transparent !important;
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+    display:flex;align-items:center;justify-content:center;
+    padding:20px 16px;
+    min-height:100vh;
+  }
+  #screen-login{flex-direction:column;align-items:stretch}
+  .login-panel::before{display:none}
+  /* CARD: sin blur — solo fondo semitransparente para ver el video detrás */
+  .login-card{
+    background:rgba(9,11,22,.82);
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:22px;
+    padding:36px 28px 28px;
+    max-width:420px;
+    width:100%;
+    box-shadow:0 28px 70px rgba(0,0,0,.45), 0 0 0 1px rgba(37,99,235,.15);
+    position:relative;
+  }
+  .login-card::before{
+    content:'';position:absolute;top:0;left:10%;right:10%;height:2px;
+    background:linear-gradient(90deg,transparent,var(--acc),transparent);
+    border-radius:2px;
+  }
+  /* Logo mini en mobile sobre la card */
+  .mobile-logo{
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .mobile-logo img{height:56px;width:auto;object-fit:contain;filter:brightness(0) invert(1)}
+  .mobile-logo .brand-city{font-family:var(--f3);font-size:10px;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:5px}
+}
+@media(max-width:480px){
+  .login-card{padding:28px 18px 22px;border-radius:18px}
+}
