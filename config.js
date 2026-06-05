@@ -33,6 +33,6 @@ window.VMZ_CONFIG = {
   /* ------------------------------------------------------------
      GOOGLE APPS SCRIPT — Formulario de contacto
      ------------------------------------------------------------ */
-  contactScriptUrl: 'https://script.google.com/macros/s/AKfycbzsEeBmbWLbM3s9ErAwZdLx26gnrBMlWP-_Dy04zV7IVhFwC8PClulPSo425efFBtxg5g/exec',
+  contactScriptUrl: 'https://script.google.com/macros/s/AKfycbxy_GQLUq6O3DvLIDO8m7oMnuMTA0EMS6BgPvC_BGUyCEEq1aqwpjAC6_ATW-wrv0BaDw/exec',
 
 };
